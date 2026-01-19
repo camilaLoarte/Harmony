@@ -28,6 +28,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.subtitle": "Professional cleaning services that bring harmony and cleanliness to your home or business",
     "hero.cta": "Get Your Free Quote",
     "hero.secondary": "Learn More",
+    "hero.tagline": "A little dirty? Then...",
+    "hero.mainTitle": "Be Clean\nBe Harmony",
+    "hero.requestEstimate": "Request",
+    "hero.estimation": "Estimate",
+    "hero.schedule": "Schedule",
+    "hero.now": "Now",
+    "hero.satisfaction": "Satisfaction",
 
     // Services
     "services.title": "Our Services",
@@ -174,6 +181,13 @@ const translations: Record<Language, Record<string, string>> = {
     "hero.subtitle": "Servicios profesionales de limpieza que traen armonía y limpieza a tu hogar o negocio",
     "hero.cta": "Obtén Tu Cotización Gratis",
     "hero.secondary": "Conoce Más",
+    "hero.tagline": "¿Un poco sucio? Entonces...",
+    "hero.mainTitle": "Se Limpio\nSe Harmony",
+    "hero.requestEstimate": "Solicitud",
+    "hero.estimation": "Estimación",
+    "hero.schedule": "Agenda",
+    "hero.now": "Ahora",
+    "hero.satisfaction": "Satisfacción",
 
     // Services
     "services.title": "Nuestros Servicios",

@@ -34,7 +34,6 @@ export default function Contact() {
     const meters = Number.parseFloat(formData.squareMeters) || 0
     if (meters === 0) return null
 
-    // Base prices per square meter by service type
     const basePrices: Record<string, number> = {
       residential: 2.5,
       commercial: 2.0,
@@ -43,7 +42,6 @@ export default function Contact() {
       organizing: 3.0,
     }
 
-    // Frequency discounts
     const frequencyMultiplier: Record<string, number> = {
       once: 1.0,
       weekly: 0.75,
@@ -55,7 +53,6 @@ export default function Contact() {
     const frequencyDiscount = frequencyMultiplier[formData.frequency] || 1.0
     const estimatedPrice = meters * basePrice * frequencyDiscount
 
-    // Minimum price
     const finalPrice = Math.max(estimatedPrice, 80)
 
     return {
@@ -99,26 +96,26 @@ export default function Contact() {
 
             <div className="space-y-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-6 h-6 text-[#1a4d3a]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h3>
-                  <a href="tel:+12403083255" className="text-muted-foreground hover:text-primary transition-colors">
+                  <a href="tel:+12403083255" className="text-muted-foreground hover:text-[#1a4d3a] transition-colors">
                     +1 (240) 308-3255
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-6 h-6 text-[#1a4d3a]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.email")}</h3>
                   <a
                     href="mailto:info@harmony.com"
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="text-muted-foreground hover:text-[#1a4d3a] transition-colors"
                   >
                     info@harmony.com
                   </a>
@@ -126,8 +123,8 @@ export default function Contact() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-6 h-6 text-[#1a4d3a]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.address")}</h3>
@@ -137,15 +134,15 @@ export default function Contact() {
             </div>
 
             {priceEstimate && (
-              <Card className="mt-8 border-primary/20 bg-primary/5">
+              <Card className="mt-8 border-[#1a4d3a]/20 bg-[#1a4d3a]/5">
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-lg">
-                    <Calculator className="w-5 h-5 text-primary" />
+                    <Calculator className="w-5 h-5 text-[#1a4d3a]" />
                     {t("contact.estimate.title")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-primary">
+                  <div className="text-3xl font-bold text-[#1a4d3a]">
                     ${priceEstimate.priceRange.min} - ${priceEstimate.priceRange.max}
                   </div>
                   <p className="text-sm text-muted-foreground mt-1">{t("contact.estimate.disclaimer")}</p>
@@ -198,7 +195,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">{t("contact.serviceType")}</Label>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.serviceType")}</Label>
                   <Select
                     value={formData.serviceType}
                     onValueChange={(value) => handleSelectChange("serviceType", value)}
@@ -217,32 +214,36 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">{t("contact.propertyType")}</Label>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.propertyType")}</Label>
                   <RadioGroup
                     value={formData.propertyType}
                     onValueChange={(value) => handleSelectChange("propertyType", value)}
                     className="flex flex-wrap gap-4"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="house" id="house" />
+                      <RadioGroupItem value="house" id="house" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="house" className="cursor-pointer">
                         {t("contact.property.house")}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="apartment" id="apartment" />
+                      <RadioGroupItem value="apartment" id="apartment" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="apartment" className="cursor-pointer">
                         {t("contact.property.apartment")}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="office" id="office" />
+                      <RadioGroupItem value="office" id="office" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="office" className="cursor-pointer">
                         {t("contact.property.office")}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="commercial" id="commercial-property" />
+                      <RadioGroupItem
+                        value="commercial"
+                        id="commercial-property"
+                        className="border-[#1a4d3a] text-[#1a4d3a]"
+                      />
                       <Label htmlFor="commercial-property" className="cursor-pointer">
                         {t("contact.property.commercial")}
                       </Label>
@@ -252,7 +253,7 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium mb-2 block">{t("contact.squareMeters")}</Label>
+                    <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.squareMeters")}</Label>
                     <Input
                       name="squareMeters"
                       type="number"
@@ -263,7 +264,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <Label className="text-sm font-medium mb-2 block">{t("contact.frequency")}</Label>
+                    <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.frequency")}</Label>
                     <Select
                       value={formData.frequency}
                       onValueChange={(value) => handleSelectChange("frequency", value)}
@@ -283,26 +284,28 @@ export default function Contact() {
 
                 {/* Service Location */}
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">{t("contact.serviceLocation")} *</Label>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
+                    {t("contact.serviceLocation")} *
+                  </Label>
                   <RadioGroup
                     value={formData.serviceLocation}
                     onValueChange={(value) => handleSelectChange("serviceLocation", value)}
                     className="flex flex-wrap gap-4"
                   >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="maryland" id="maryland" />
+                      <RadioGroupItem value="maryland" id="maryland" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="maryland" className="cursor-pointer">
                         Maryland
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="washington" id="washington" />
+                      <RadioGroupItem value="washington" id="washington" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="washington" className="cursor-pointer">
                         Washington
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="virginia" id="virginia" />
+                      <RadioGroupItem value="virginia" id="virginia" className="border-[#1a4d3a] text-[#1a4d3a]" />
                       <Label htmlFor="virginia" className="cursor-pointer">
                         Virginia
                       </Label>
@@ -312,7 +315,7 @@ export default function Contact() {
 
                 {/* Address Details */}
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">{t("contact.addressDetails")}</Label>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.addressDetails")}</Label>
                   <Textarea
                     name="addressDetails"
                     placeholder={t("contact.addressDetails.placeholder")}
@@ -323,7 +326,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">{t("contact.preferredDate")}</Label>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">{t("contact.preferredDate")}</Label>
                   <Input name="preferredDate" type="date" value={formData.preferredDate} onChange={handleChange} />
                 </div>
 
@@ -338,7 +341,7 @@ export default function Contact() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full bg-[#1a4d3a] hover:bg-[#153d2e] text-white">
                   {t("contact.submit")}
                 </Button>
               </form>

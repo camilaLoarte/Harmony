@@ -235,7 +235,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             {/* FAQ Section - Left Side */}
             <div>
-              <p className="text-xs text-[#b8860b] font-medium mb-3 uppercase tracking-[0.2em]">
+              <p className="text-xs text-[#1a4d3a] font-medium mb-3 uppercase tracking-[0.2em]">
                 {language === "es" ? "PREGUNTAS DE INFORMACIÓN" : "INFORMATION QUESTIONS"}
               </p>
               <h1 className="text-3xl sm:text-4xl font-bold text-[#1a4d3a] mb-10 tracking-tight">
@@ -245,7 +245,7 @@ export default function ContactPage() {
               <Accordion type="single" collapsible className="w-full space-y-0">
                 {faqItems.map((item, index) => (
                   <AccordionItem key={index} value={`item-${index}`} className="border-t border-gray-300 last:border-b">
-                    <AccordionTrigger className="text-left text-[#b8860b] hover:text-[#9a7209] hover:no-underline py-5 text-base font-normal">
+                    <AccordionTrigger className="text-left text-[#1a4d3a] hover:text-[#153d2e] hover:no-underline py-5 text-base font-normal">
                       {item.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 pb-5 text-sm leading-relaxed">
@@ -258,7 +258,7 @@ export default function ContactPage() {
 
             {/* Contact Form - Right Side */}
             <div>
-              <p className="text-xs text-[#b8860b] font-medium mb-3 uppercase tracking-[0.2em]">
+              <p className="text-xs text-[#1a4d3a] font-medium mb-3 uppercase tracking-[0.2em]">
                 {language === "es" ? "INFORMACIÓN ACERCA DE NOSOTROS" : "INFORMATION ABOUT US"}
               </p>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#1a4d3a] mb-10 tracking-tight leading-tight">
@@ -277,7 +277,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#b8860b] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
+                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
                     />
                   </div>
                   <div>
@@ -288,7 +288,7 @@ export default function ContactPage() {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#b8860b] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
+                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
                     />
                   </div>
                 </div>
@@ -302,14 +302,14 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#b8860b] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
+                    className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
                   />
                 </div>
 
                 {/* Service Type and Service Location - Side by side */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
                   <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#b8860b]">
+                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
                       {language === "es" ? "Tipo de Servicio Requerido:" : "Service Type Required:"} *
                     </Label>
                     <RadioGroup
@@ -333,7 +333,7 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#b8860b]">
+                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
                       {language === "es" ? "Ubicación Del Servicio:" : "Service Location:"} *
                     </Label>
                     <RadioGroup
@@ -344,30 +344,30 @@ export default function ContactPage() {
                       <div className="flex items-center space-x-3">
                         <RadioGroupItem
                           value="maryland"
-                          id="maryland"
+                          id="maryland-page"
                           className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
                         />
-                        <Label htmlFor="maryland" className="cursor-pointer text-sm text-gray-700 font-normal">
+                        <Label htmlFor="maryland-page" className="cursor-pointer text-sm text-gray-700 font-normal">
                           Maryland
                         </Label>
                       </div>
                       <div className="flex items-center space-x-3">
                         <RadioGroupItem
                           value="washington"
-                          id="washington"
+                          id="washington-page"
                           className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
                         />
-                        <Label htmlFor="washington" className="cursor-pointer text-sm text-gray-700 font-normal">
+                        <Label htmlFor="washington-page" className="cursor-pointer text-sm text-gray-700 font-normal">
                           Washington
                         </Label>
                       </div>
                       <div className="flex items-center space-x-3">
                         <RadioGroupItem
                           value="virginia"
-                          id="virginia"
+                          id="virginia-page"
                           className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
                         />
-                        <Label htmlFor="virginia" className="cursor-pointer text-sm text-gray-700 font-normal">
+                        <Label htmlFor="virginia-page" className="cursor-pointer text-sm text-gray-700 font-normal">
                           Virginia
                         </Label>
                       </div>
@@ -377,7 +377,7 @@ export default function ContactPage() {
 
                 {/* Address Details */}
                 <div className="pt-2">
-                  <Label className="text-sm font-medium mb-3 block text-[#b8860b]">
+                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
                     {language === "es" ? "Dirección Detallada" : "Detailed Address"}
                   </Label>
                   <Textarea
@@ -396,7 +396,7 @@ export default function ContactPage() {
 
                 {/* Area Size */}
                 <div>
-                  <Label className="text-sm font-medium mb-3 block text-[#b8860b]">
+                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
                     {language === "es" ? "Tamaño del Área (pies²)" : "Area Size (sq ft)"}
                   </Label>
                   <Input
@@ -432,9 +432,9 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
-                  className="w-full sm:w-auto bg-[#1a4d3a] hover:bg-[#163d2f] text-white uppercase text-sm tracking-wider px-10 py-6"
+                  className="w-full sm:w-auto bg-[#1a4d3a] hover:bg-[#153d2e] text-white uppercase text-sm tracking-wider px-10 py-6"
                 >
-                  {language === "es" ? "Enviar" : "Submit"}
+                  {language === "es" ? "ENVIAR" : "SEND"}
                 </Button>
               </form>
             </div>
