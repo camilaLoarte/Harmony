@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Calculator, Phone, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
@@ -22,9 +23,13 @@ export default function ContactPage() {
     email: "",
     phone: "",
     serviceType: "",
+    propertyType: "",
     squareMeters: "",
+    frequency: "",
+    preferredDate: "",
     serviceLocation: "",
     addressDetails: "",
+    message: "",
   })
 
   const priceEstimate = useMemo(() => {
@@ -40,8 +45,16 @@ export default function ContactPage() {
       special: 3.5,
     }
 
+    const frequencyMultiplier: Record<string, number> = {
+      once: 1.0,
+      weekly: 0.75,
+      biweekly: 0.85,
+      monthly: 0.9,
+    }
+
     const basePrice = basePrices[formData.serviceType] || 2.5
-    const estimatedPrice = meters * basePrice
+    const frequencyDiscount = frequencyMultiplier[formData.frequency] || 1.0
+    const estimatedPrice = meters * basePrice * frequencyDiscount
     const finalPrice = Math.max(estimatedPrice, 80)
 
     return {
@@ -51,7 +64,7 @@ export default function ContactPage() {
         max: (finalPrice * 1.1).toFixed(2),
       },
     }
-  }, [formData.squareMeters, formData.serviceType])
+  }, [formData.squareMeters, formData.serviceType, formData.frequency])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -62,6 +75,13 @@ export default function ContactPage() {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    })
+  }
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value,
     })
   }
 
@@ -306,78 +326,130 @@ export default function ContactPage() {
                   />
                 </div>
 
-                {/* Service Type and Service Location - Side by side */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                  <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
-                      {language === "es" ? "Tipo de Servicio Requerido:" : "Service Type Required:"} *
-                    </Label>
-                    <RadioGroup
-                      value={formData.serviceType}
-                      onValueChange={(value) => setFormData({ ...formData, serviceType: value })}
-                      className="space-y-3"
-                    >
+                {/* Service Type - Select Dropdown */}
+                <div className="pt-2">
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
+                    {language === "es" ? "Tipo de Servicio" : "Service Type"}
+                  </Label>
+                  <Select
+                    value={formData.serviceType}
+                    onValueChange={(value) => handleSelectChange("serviceType", value)}
+                  >
+                    <SelectTrigger className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                      <SelectValue placeholder={language === "es" ? "Selecciona un servicio" : "Select a service"} />
+                    </SelectTrigger>
+                    <SelectContent>
                       {serviceTypes.map((service) => (
-                        <div key={service.value} className="flex items-center space-x-3">
-                          <RadioGroupItem
-                            value={service.value}
-                            id={service.value}
-                            className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                          />
-                          <Label htmlFor={service.value} className="cursor-pointer text-sm text-gray-700 font-normal">
-                            {service.label}
-                          </Label>
-                        </div>
+                        <SelectItem key={service.value} value={service.value}>
+                          {service.label}
+                        </SelectItem>
                       ))}
-                    </RadioGroup>
-                  </div>
+                    </SelectContent>
+                  </Select>
+                </div>
 
+                {/* Property Type - Radio Buttons */}
+                <div>
+                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
+                    {language === "es" ? "Tipo de Propiedad" : "Property Type"}
+                  </Label>
+                  <RadioGroup
+                    value={formData.propertyType}
+                    onValueChange={(value) => handleSelectChange("propertyType", value)}
+                    className="flex flex-wrap gap-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="house" id="house-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="house-page" className="cursor-pointer text-sm text-gray-700">
+                        {language === "es" ? "Casa" : "House"}
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="apartment" id="apartment-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="apartment-page" className="cursor-pointer text-sm text-gray-700">
+                        {language === "es" ? "Apartamento" : "Apartment"}
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="office" id="office-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="office-page" className="cursor-pointer text-sm text-gray-700">
+                        {language === "es" ? "Oficina" : "Office"}
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="commercial" id="commercial-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="commercial-page" className="cursor-pointer text-sm text-gray-700">
+                        {language === "es" ? "Local Comercial" : "Commercial"}
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Area Size and Frequency - Side by side */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
-                      {language === "es" ? "Ubicación Del Servicio:" : "Service Location:"} *
+                    <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
+                      {language === "es" ? "Tamaño del Área (pies²)" : "Area Size (sq ft)"}
                     </Label>
-                    <RadioGroup
-                      value={formData.serviceLocation}
-                      onValueChange={(value) => setFormData({ ...formData, serviceLocation: value })}
-                      className="space-y-3"
+                    <Input
+                      name="squareMeters"
+                      type="number"
+                      placeholder={language === "es" ? "Ingresa pies cuadrados" : "Enter square feet"}
+                      value={formData.squareMeters}
+                      onChange={handleChange}
+                      min="1"
+                      className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
+                      {language === "es" ? "Frecuencia de Limpieza" : "Cleaning Frequency"}
+                    </Label>
+                    <Select
+                      value={formData.frequency}
+                      onValueChange={(value) => handleSelectChange("frequency", value)}
                     >
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="maryland"
-                          id="maryland-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="maryland-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Maryland
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="washington"
-                          id="washington-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="washington-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Washington
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="virginia"
-                          id="virginia-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="virginia-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Virginia
-                        </Label>
-                      </div>
-                    </RadioGroup>
+                      <SelectTrigger className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                        <SelectValue placeholder={language === "es" ? "Selecciona frecuencia" : "Select frequency"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="once">{language === "es" ? "Una vez" : "One time"}</SelectItem>
+                        <SelectItem value="weekly">{language === "es" ? "Semanal (-25%)" : "Weekly (-25%)"}</SelectItem>
+                        <SelectItem value="biweekly">{language === "es" ? "Quincenal (-15%)" : "Biweekly (-15%)"}</SelectItem>
+                        <SelectItem value="monthly">{language === "es" ? "Mensual (-10%)" : "Monthly (-10%)"}</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 
-                {/* Address Details */}
-                <div className="pt-2">
+                {/* Service Location - Radio Buttons */}
+                <div>
                   <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
+                    {language === "es" ? "Ubicación Del Servicio" : "Service Location"} *
+                  </Label>
+                  <RadioGroup
+                    value={formData.serviceLocation}
+                    onValueChange={(value) => handleSelectChange("serviceLocation", value)}
+                    className="flex flex-wrap gap-4"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="maryland" id="maryland-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="maryland-page" className="cursor-pointer text-sm text-gray-700">Maryland</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="washington" id="washington-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="washington-page" className="cursor-pointer text-sm text-gray-700">Washington</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="virginia" id="virginia-page" className="border-gray-400 text-[#1a4d3a]" />
+                      <Label htmlFor="virginia-page" className="cursor-pointer text-sm text-gray-700">Virginia</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                {/* Address Details */}
+                <div>
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
                     {language === "es" ? "Dirección Detallada" : "Detailed Address"}
                   </Label>
                   <Textarea
@@ -394,19 +466,33 @@ export default function ContactPage() {
                   />
                 </div>
 
-                {/* Area Size */}
+                {/* Preferred Date */}
                 <div>
-                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
-                    {language === "es" ? "Tamaño del Área (pies²)" : "Area Size (sq ft)"}
+                  <Label className="text-sm font-medium mb-2 block text-[#1a4d3a]">
+                    {language === "es" ? "Fecha Preferida" : "Preferred Date"}
                   </Label>
                   <Input
-                    name="squareMeters"
-                    type="number"
-                    placeholder={language === "es" ? "Ingresa pies cuadrados" : "Enter square feet"}
-                    value={formData.squareMeters}
+                    name="preferredDate"
+                    type="date"
+                    value={formData.preferredDate}
                     onChange={handleChange}
-                    min="1"
                     className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                  />
+                </div>
+
+                {/* Additional Details */}
+                <div>
+                  <Textarea
+                    name="message"
+                    placeholder={
+                      language === "es"
+                        ? "Detalles Adicionales o Solicitudes Especiales"
+                        : "Additional Details or Special Requests"
+                    }
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={3}
+                    className="resize-none bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
                   />
                 </div>
 
@@ -434,7 +520,7 @@ export default function ContactPage() {
                   type="submit"
                   className="w-full sm:w-auto bg-[#1a4d3a] hover:bg-[#153d2e] text-white uppercase text-sm tracking-wider px-10 py-6"
                 >
-                  {language === "es" ? "ENVIAR" : "SEND"}
+                  {language === "es" ? "Obtener Mi Cotización" : "Get My Quote"}
                 </Button>
               </form>
             </div>
