@@ -1,115 +1,17 @@
 "use client"
 
-import type React from "react"
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Calculator, Phone, Menu, X } from "lucide-react"
+import { Phone, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { submitContactForm } from "@/app/actions/contact-actions"
-import { toast } from "sonner"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog"
+import ContactForm from "@/components/contact-form"
 
 export default function ContactPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { t, language } = useLanguage()
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    serviceType: "",
-    squareMeters: "",
-    serviceLocation: "",
-    addressDetails: "",
-  })
-
-  // State for form validation errors
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const [showSuccess, setShowSuccess] = useState(false)
-
-  const priceEstimate = useMemo(() => {
-    const meters = Number.parseFloat(formData.squareMeters) || 0
-    if (meters === 0) return null
-
-    const basePrices: Record<string, number> = {
-      organizing: 3.0,
-      residential: 2.5,
-      commercial: 2.0,
-      deep: 4.0,
-      moveInOut: 3.5,
-      special: 3.5,
-    }
-
-    const basePrice = basePrices[formData.serviceType] || 2.5
-    const estimatedPrice = meters * basePrice
-    const finalPrice = Math.max(estimatedPrice, 80)
-
-    return {
-      price: finalPrice.toFixed(2),
-      priceRange: {
-        min: (finalPrice * 0.9).toFixed(2),
-        max: (finalPrice * 1.1).toFixed(2),
-      },
-    }
-  }, [formData.squareMeters, formData.serviceType])
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    const formDataToSend = new FormData()
-    formDataToSend.append("name", formData.name)
-    formDataToSend.append("email", formData.email)
-    formDataToSend.append("phone", formData.phone)
-    formDataToSend.append("serviceType", formData.serviceType)
-    formDataToSend.append("serviceLocation", formData.serviceLocation)
-    formDataToSend.append("squareMeters", formData.squareMeters)
-    formDataToSend.append("addressDetails", formData.addressDetails)
-
-    const result = await submitContactForm(null, formDataToSend)
-
-    if (result.success) {
-      toast.success(language === "es" ? "Solicitud enviada con éxito!" : "Request sent successfully!")
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        serviceType: "",
-        squareMeters: "",
-        serviceLocation: "",
-        addressDetails: "",
-      })
-      setErrors({}) // Clear errors on success
-      setShowSuccess(true)
-    } else {
-      if (result.errors) {
-        setErrors(result.errors)
-        toast.error(language === "es" ? "Por favor corrija los errores en el formulario." : "Please fix the errors in the form.")
-      } else {
-        toast.error(result.message)
-      }
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
 
   const navItems = [
     { name: t("nav.home"), href: "/" },
@@ -171,25 +73,6 @@ export default function ContactPage() {
           question: "How can I contact Harmony?",
           answer: "Customers can contact Harmony at +1 (240) 308-3255.",
         },
-      ]
-
-  const serviceTypes =
-    language === "es"
-      ? [
-        { value: "organizing", label: "Servicios de Organización" },
-        { value: "residential", label: "Limpieza de Inmuebles" },
-        { value: "commercial", label: "Limpieza Comercial" },
-        { value: "deep", label: "Limpieza Profunda" },
-        { value: "moveInOut", label: "Limpieza de Mudanza" },
-        { value: "special", label: "Limpieza en fechas especiales" },
-      ]
-      : [
-        { value: "organizing", label: "Organization Services" },
-        { value: "residential", label: "Residential Cleaning" },
-        { value: "commercial", label: "Commercial Cleaning" },
-        { value: "deep", label: "Deep Cleaning" },
-        { value: "moveInOut", label: "Move In/Out Cleaning" },
-        { value: "special", label: "Special Occasions Cleaning" },
       ]
 
   return (
@@ -313,208 +196,11 @@ export default function ContactPage() {
                   : "GET IN TOUCH WITH US FOR ANY QUESTIONS"}
               </h2>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name and Phone - Side by side */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <Input
-                      name="name"
-                      placeholder={language === "es" ? "Nombre Completo: *" : "Full Name: *"}
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <Input
-                      name="phone"
-                      type="tel"
-                      placeholder={language === "es" ? "Escribe tu número *" : "Phone Number *"}
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div>
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder={language === "es" ? "Dirección de correo electrónico *" : "Email Address *"}
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="bg-transparent border-0 border-b border-gray-400 rounded-none px-0 py-3 text-gray-700 placeholder:text-[#1a4d3a] focus-visible:ring-0 focus-visible:border-[#1a4d3a] transition-colors"
-                  />
-                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                </div>
-
-                {/* Service Type and Service Location - Side by side */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
-                  <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
-                      {language === "es" ? "Tipo de Servicio Requerido:" : "Service Type Required:"} *
-                    </Label>
-                    <RadioGroup
-                      value={formData.serviceType}
-                      onValueChange={(value) => setFormData({ ...formData, serviceType: value })}
-                      className="space-y-3"
-                    >
-                      {serviceTypes.map((service) => (
-                        <div key={service.value} className="flex items-center space-x-3">
-                          <RadioGroupItem
-                            value={service.value}
-                            id={service.value}
-                            className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                          />
-                          <Label htmlFor={service.value} className="cursor-pointer text-sm text-gray-700 font-normal">
-                            {service.label}
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                    {errors.serviceType && <p className="text-red-500 text-xs mt-1">{errors.serviceType}</p>}
-                  </div>
-
-                  <div>
-                    <Label className="text-sm font-medium mb-4 block text-[#1a4d3a]">
-                      {language === "es" ? "Ubicación Del Servicio:" : "Service Location:"} *
-                    </Label>
-                    <RadioGroup
-                      value={formData.serviceLocation}
-                      onValueChange={(value) => setFormData({ ...formData, serviceLocation: value })}
-                      className="space-y-3"
-                    >
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="maryland"
-                          id="maryland-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="maryland-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Maryland
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="washington"
-                          id="washington-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="washington-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Washington
-                        </Label>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <RadioGroupItem
-                          value="virginia"
-                          id="virginia-page"
-                          className="border-gray-400 text-[#1a4d3a] focus:ring-[#1a4d3a]"
-                        />
-                        <Label htmlFor="virginia-page" className="cursor-pointer text-sm text-gray-700 font-normal">
-                          Virginia
-                        </Label>
-                      </div>
-                    </RadioGroup>
-                    {errors.serviceLocation && <p className="text-red-500 text-xs mt-1">{errors.serviceLocation}</p>}
-                  </div>
-                </div>
-
-                {/* Address Details */}
-                <div className="pt-2">
-                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
-                    {language === "es" ? "Dirección Detallada" : "Detailed Address"}
-                  </Label>
-                  <Textarea
-                    name="addressDetails"
-                    placeholder={
-                      language === "es"
-                        ? "Número de casa, calles, referencias, etc."
-                        : "House number, street name, references, etc."
-                    }
-                    value={formData.addressDetails}
-                    onChange={handleChange}
-                    rows={3}
-                    className="resize-none bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
-                  />
-                  {errors.addressDetails && <p className="text-red-500 text-xs mt-1">{errors.addressDetails}</p>}
-                </div>
-
-                {/* Area Size */}
-                <div>
-                  <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
-                    {language === "es" ? "Tamaño del Área (pies²)" : "Area Size (sq ft)"}
-                  </Label>
-                  <Input
-                    name="squareMeters"
-                    type="number"
-                    placeholder={language === "es" ? "Ingresa pies cuadrados" : "Enter square feet"}
-                    value={formData.squareMeters}
-                    onChange={handleChange}
-                    min="1"
-                    className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
-                  />
-                  {errors.squareMeters && <p className="text-red-500 text-xs mt-1">{errors.squareMeters}</p>}
-                </div>
-
-                {/* Price Estimate */}
-                {priceEstimate && (
-                  <div className="p-5 bg-[#1a4d3a]/5 border border-[#1a4d3a]/20 rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Calculator className="w-5 h-5 text-[#1a4d3a]" />
-                      <span className="font-medium text-[#1a4d3a]">
-                        {language === "es" ? "Precio Estimado" : "Estimated Price"}
-                      </span>
-                    </div>
-                    <div className="text-2xl font-bold text-[#1a4d3a]">
-                      ${priceEstimate.priceRange.min} - ${priceEstimate.priceRange.max}
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1">
-                      {language === "es"
-                        ? "El precio final puede variar según las condiciones reales"
-                        : "Final price may vary based on actual conditions"}
-                    </p>
-                  </div>
-                )}
-
-                <Button
-                  type="submit"
-                  className="w-full sm:w-auto bg-[#1a4d3a] hover:bg-[#153d2e] text-white uppercase text-sm tracking-wider px-10 py-6"
-                >
-                  {language === "es" ? "ENVIAR" : "SEND"}
-                </Button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>
       </main>
-
-      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-[#1a4d3a]">
-              {language === "es" ? "¡Mensaje Enviado!" : "Message Sent!"}
-            </DialogTitle>
-            <DialogDescription>
-              {language === "es"
-                ? "Hemos recibido tu solicitud correctamente. Nos pondremos en contacto contigo pronto."
-                : "We have received your request successfully. We will contact you soon."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex justify-end mt-4">
-            <Button
-              onClick={() => setShowSuccess(false)}
-              className="bg-[#1a4d3a] hover:bg-[#153d2e] text-white"
-            >
-              {language === "es" ? "Cerrar" : "Close"}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   )
 }
