@@ -34,31 +34,39 @@ export default function Hero() {
               {t("hero.mainTitle")}
             </h1>
 
-            {/* Styled Buttons with Corner Brackets */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            {/* Styled Buttons with Elegant Corner Brackets */}
+            <div className="flex flex-col sm:flex-row gap-6 mb-12">
               {/* Request Estimate Button */}
               <Link href="/contacto" className="group">
-                <div className="relative bg-white border border-gray-200 px-8 py-5 hover:bg-gray-50 transition-colors">
+                <div className="relative bg-white px-10 py-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   {/* Top-left corner bracket */}
-                  <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#1a4d3a]"></div>
+                  <div className="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-left-2"></div>
                   {/* Top-right corner bracket */}
-                  <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#1a4d3a]"></div>
+                  <div className="absolute -top-1.5 -right-1.5 w-6 h-6 border-t-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-right-2"></div>
+                  {/* Bottom-left corner bracket */}
+                  <div className="absolute -bottom-1.5 -left-1.5 w-6 h-6 border-b-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-left-2"></div>
+                  {/* Bottom-right corner bracket */}
+                  <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-right-2"></div>
                   
-                  <span className="text-base font-medium text-[#1a4d3a] block">{t("hero.requestEstimate")}</span>
-                  <span className="text-base font-medium text-[#1a4d3a] block">{t("hero.estimation")}</span>
+                  <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.requestEstimate")}</span>
+                  <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.estimation")}</span>
                 </div>
               </Link>
 
               {/* Schedule Now Button */}
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="group">
-                <div className="relative bg-white border border-gray-200 px-8 py-5 hover:bg-gray-50 transition-colors">
+                <div className="relative bg-white px-10 py-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   {/* Top-left corner bracket */}
-                  <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#1a4d3a]"></div>
+                  <div className="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-left-2"></div>
                   {/* Top-right corner bracket */}
-                  <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#1a4d3a]"></div>
+                  <div className="absolute -top-1.5 -right-1.5 w-6 h-6 border-t-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-right-2"></div>
+                  {/* Bottom-left corner bracket */}
+                  <div className="absolute -bottom-1.5 -left-1.5 w-6 h-6 border-b-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-left-2"></div>
+                  {/* Bottom-right corner bracket */}
+                  <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-right-2"></div>
                   
-                  <span className="text-base font-medium text-[#1a4d3a] block">{t("hero.schedule")}</span>
-                  <span className="text-base font-medium text-[#1a4d3a] block">{t("hero.now")}</span>
+                  <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.schedule")}</span>
+                  <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.now")}</span>
                 </div>
               </a>
             </div>

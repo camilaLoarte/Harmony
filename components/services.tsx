@@ -1,7 +1,8 @@
 "use client"
 
+import Link from "next/link"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Home, Briefcase, Sparkles, Calendar, Package, FolderKanban } from "lucide-react"
+import { Home, Briefcase, Sparkles, Calendar, Package, FolderKanban, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 export default function Services() {
@@ -12,31 +13,37 @@ export default function Services() {
       icon: Home,
       titleKey: "services.residential.title",
       descKey: "services.residential.desc",
+      slug: "residential-cleaning",
     },
     {
       icon: Sparkles,
       titleKey: "services.deep.title",
       descKey: "services.deep.desc",
+      slug: "deep-cleaning",
     },
     {
       icon: Briefcase,
       titleKey: "services.commercial.title",
       descKey: "services.commercial.desc",
+      slug: "commercial-cleaning",
     },
     {
       icon: Package,
       titleKey: "services.moveInOut.title",
       descKey: "services.moveInOut.desc",
+      slug: "move-in-out",
     },
     {
       icon: Calendar,
       titleKey: "services.specialOccasions.title",
       descKey: "services.specialOccasions.desc",
+      slug: "special-occasions",
     },
     {
       icon: FolderKanban,
       titleKey: "services.organizing.title",
       descKey: "services.organizing.desc",
+      slug: "organizing",
     },
   ]
 
@@ -54,19 +61,22 @@ export default function Services() {
           {services.map((service, index) => {
             const Icon = service.icon
             return (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl mb-2">
-                    {service.titleKey ? t(service.titleKey) : service.title}
-                  </CardTitle>
-                  <CardDescription className="text-base">
-                    {service.descKey ? t(service.descKey) : service.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+              <Link key={index} href={`/servicios/${service.slug}`} className="group">
+                <Card className="border-border hover:shadow-lg hover:border-primary/30 transition-all duration-300 h-full">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl mb-2 flex items-center justify-between">
+                      <span>{t(service.titleKey)}</span>
+                      <ArrowRight className="w-5 h-5 text-muted-foreground opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </CardTitle>
+                    <CardDescription className="text-base">
+                      {t(service.descKey)}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
             )
           })}
         </div>

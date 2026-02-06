@@ -158,8 +158,8 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "All rights reserved.",
 
     // Promo
-    "promo.title": "Get Our Special Offers!",
-    "promo.subtitle": "Leave your number and receive exclusive discounts and promotions",
+    "promo.title": "Let Us Contact You",
+    "promo.subtitle": "Leave your number and we will get in touch with you",
     "promo.placeholder": "Enter your phone number",
     "promo.cta": "Call Me",
     "promo.benefit1": "First Service Discount",
@@ -311,8 +311,8 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.rights": "Todos los derechos reservados.",
 
     // Promo
-    "promo.title": "¡Obtén Nuestras Ofertas!",
-    "promo.subtitle": "Deja tu número y recibe descuentos y promociones exclusivas",
+    "promo.title": "Dejanos Contactarte",
+    "promo.subtitle": "Deja tu número y nos comunicaremos contigo",
     "promo.placeholder": "Escribe tu número",
     "promo.cta": "Tímbrame",
     "promo.benefit1": "Descuento Primer Servicio",
