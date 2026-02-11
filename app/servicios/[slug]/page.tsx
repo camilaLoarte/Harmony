@@ -11,6 +11,7 @@ import { Phone, Menu, X, ArrowLeft } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 import Footer from "@/components/footer"
+import Promo from "@/components/promo"
 
 interface ServiceData {
   slug: string
@@ -304,7 +305,8 @@ export default function ServiceDetailPage() {
       </section>
 
       {/* CTA / Phone Section */}
-      <section className="py-12 md:py-16 bg-[#1a4d3a]">
+      <Promo />
+      {/* <section className="py-12 md:py-16 bg-[#1a4d3a]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{t("promo.title")}</h2>
@@ -339,7 +341,7 @@ export default function ServiceDetailPage() {
             </form>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <Footer />

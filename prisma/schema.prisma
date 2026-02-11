@@ -22,3 +22,10 @@ model ContactSubmission {
   addressDetails  String? // Optional
   status          String   @default("PENDING") // PENDING, CONTACTED, RESOLVED
 }
+model PromoLead {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  phone     String
+  source    String   @default("PROMO")
+  status    String   @default("PENDING")
+}

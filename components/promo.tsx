@@ -1,22 +1,17 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
+import { useFormState } from "react-dom"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Phone } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { submitPromoPhone } from "@/app/actions/contact-actions"
+
+const initialState = { success: false, message: "" }
 
 export default function Promo() {
   const { t } = useLanguage()
-  const [phone, setPhone] = useState("")
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("[v0] Phone submitted:", phone)
-    // Handle phone submission
-  }
+  const [state, action] = useFormState(submitPromoPhone, initialState)
 
   return (
     //<div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-[#1a4d3a] to-[#22513c]">
@@ -26,12 +21,12 @@ export default function Promo() {
         <p className="text-white/90 text-sm md:text-base">{t("promo.subtitle")}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="max-w-xl mx-auto">
+      {/* ✅ OJO: ahora el form llama a la Server Action */}
+      <form action={action} className="max-w-xl mx-auto">
         <div className="flex flex-col sm:flex-row gap-3">
           <Input
+            name="phone"                 // ✅ clave: FormData usa este name
             type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
             placeholder={t("promo.placeholder")}
             className="flex-1 h-12 bg-white/95 backdrop-blur border-white/50 text-foreground placeholder:text-muted-foreground focus-visible:ring-white focus-visible:border-white"
             required
@@ -45,6 +40,14 @@ export default function Promo() {
             {t("promo.cta")}
           </Button>
         </div>
+
+        {/* Mensaje de estado */}
+        {state.message ? (
+          <p className="mt-3 text-sm text-white/90">
+            {state.success ? "✅ " : "❌ "}
+            {state.message}
+          </p>
+        ) : null}
       </form>
     </div>
   )
