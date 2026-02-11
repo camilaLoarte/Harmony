@@ -10,12 +10,12 @@ export default function Hero() {
   const whatsappUrl = "https://api.whatsapp.com/send?phone=12403083255&text=Hi%20Harmony,%20%20I%20need%20information%20about%20your%20services."
 
   return (
-    <section id="home" className="relative pt-24 md:pt-32 pb-0 overflow-hidden bg-[#f8f6f3]">
+    <section id="home" className="relative pt-16 md:pt-20 pb-0 overflow-hidden bg-[#f8f6f3]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-8 lg:mt-0">
           {/* Left Image */}
-          <div className="relative order-2 lg:order-1">
-            <div className="relative aspect-[4/5] overflow-hidden">
+          <div className="relative order-2 lg:order-1 self-center">
+            <div className="relative aspect-square lg:aspect-[4/3] overflow-hidden shadow-xl">
               <img
                 src="/professional-cleaner-organizing-and-cleaning-a-mod.jpg"
                 alt="Professional cleaner in white protective suit"
@@ -25,20 +25,20 @@ export default function Hero() {
           </div>
 
           {/* Right Content */}
-          <div className="text-left order-1 lg:order-2">
+          <div className="text-left order-1 lg:order-2 lg:pt-8 pb-8">
             <p className="text-lg md:text-xl italic text-[#1a4d3a] mb-4">
               {t("hero.tagline")}
             </p>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#1a4d3a] mb-8 leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#1a4d3a] mb-8 leading-tight whitespace-pre-wrap">
               {t("hero.mainTitle")}
             </h1>
 
             {/* Styled Buttons with Elegant Corner Brackets */}
-            <div className="flex flex-col sm:flex-row gap-6 mb-12">
+            <div className="flex flex-col sm:flex-row gap-6 mb-8">
               {/* Request Estimate Button */}
               <Link href="/contacto" className="group">
-                <div className="relative bg-white px-10 py-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="relative bg-white px-8 py-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   {/* Top-left corner bracket */}
                   <div className="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-left-2"></div>
                   {/* Top-right corner bracket */}
@@ -47,7 +47,7 @@ export default function Hero() {
                   <div className="absolute -bottom-1.5 -left-1.5 w-6 h-6 border-b-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-left-2"></div>
                   {/* Bottom-right corner bracket */}
                   <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-right-2"></div>
-                  
+
                   <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.requestEstimate")}</span>
                   <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.estimation")}</span>
                 </div>
@@ -55,7 +55,7 @@ export default function Hero() {
 
               {/* Schedule Now Button */}
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="group">
-                <div className="relative bg-white px-10 py-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <div className="relative bg-white px-8 py-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                   {/* Top-left corner bracket */}
                   <div className="absolute -top-1.5 -left-1.5 w-6 h-6 border-t-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-top-2 group-hover:-left-2"></div>
                   {/* Top-right corner bracket */}
@@ -64,7 +64,7 @@ export default function Hero() {
                   <div className="absolute -bottom-1.5 -left-1.5 w-6 h-6 border-b-[6px] border-l-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-left-2"></div>
                   {/* Bottom-right corner bracket */}
                   <div className="absolute -bottom-1.5 -right-1.5 w-6 h-6 border-b-[6px] border-r-[6px] border-[#1a4d3a] transition-all duration-300 group-hover:w-8 group-hover:h-8 group-hover:-bottom-2 group-hover:-right-2"></div>
-                  
+
                   <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.schedule")}</span>
                   <span className="text-lg font-semibold text-[#1a4d3a] block tracking-wide">{t("hero.now")}</span>
                 </div>

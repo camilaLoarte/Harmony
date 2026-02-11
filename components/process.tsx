@@ -29,7 +29,7 @@ export default function Process() {
   ]
 
   return (
-    <section id="process" className="py-16 md:py-24 bg-muted/30">
+    <section id="process" className="pt-16 md:pt-24 pb-8 md:pb-12 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">

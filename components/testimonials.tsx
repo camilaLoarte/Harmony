@@ -29,7 +29,7 @@ export default function Testimonials() {
   ]
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="pt-8 md:pt-12 pb-8 md:pb-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance">

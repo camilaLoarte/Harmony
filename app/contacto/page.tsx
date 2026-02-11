@@ -161,8 +161,22 @@ export default function ContactPage() {
       {/* Main Content */}
       <main className="pt-24 md:pt-32 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* FAQ Section - Left Side */}
+          <div className="grid gap-12 lg:gap-20">
+            {/* Contact Form */}
+            <div>
+              <p className="text-xs text-[#1a4d3a] font-medium mb-3 uppercase tracking-[0.2em]">
+                {language === "es" ? "INFORMACIÓN ACERCA DE NOSOTROS" : "INFORMATION ABOUT US"}
+              </p>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#1a4d3a] mb-10 tracking-tight leading-tight">
+                {language === "es"
+                  ? "PÓNGASE EN CONTACTO CON NOSOTROS PARA CUALQUIER PREGUNTA"
+                  : "GET IN TOUCH WITH US FOR ANY QUESTIONS"}
+              </h2>
+
+              <ContactForm />
+            </div>
+
+            {/* FAQ Section */}
             <div>
               <p className="text-xs text-[#1a4d3a] font-medium mb-3 uppercase tracking-[0.2em]">
                 {language === "es" ? "PREGUNTAS DE INFORMACIÓN" : "INFORMATION QUESTIONS"}
@@ -183,20 +197,6 @@ export default function ContactPage() {
                   </AccordionItem>
                 ))}
               </Accordion>
-            </div>
-
-            {/* Contact Form - Right Side */}
-            <div>
-              <p className="text-xs text-[#1a4d3a] font-medium mb-3 uppercase tracking-[0.2em]">
-                {language === "es" ? "INFORMACIÓN ACERCA DE NOSOTROS" : "INFORMATION ABOUT US"}
-              </p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#1a4d3a] mb-10 tracking-tight leading-tight">
-                {language === "es"
-                  ? "PÓNGASE EN CONTACTO CON NOSOTROS PARA CUALQUIER PREGUNTA"
-                  : "GET IN TOUCH WITH US FOR ANY QUESTIONS"}
-              </h2>
-
-              <ContactForm />
             </div>
           </div>
         </div>

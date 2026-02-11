@@ -113,7 +113,7 @@ const servicesData: ServiceData[] = [
     descriptionEn:
       "Our professional organizing service goes beyond simple tidying. We work with you to create customized systems for closets, kitchens, garages, and more. Our organizers help you declutter, categorize, and optimize your space so that everything has its place. The result is a home or office that functions efficiently and feels calm and inviting.",
     descriptionEs:
-      "Nuestro servicio de organizacion profesional va mas alla del simple orden. Trabajamos contigo para crear sistemas personalizados para armarios, cocinas, garajes y mas. Nuestros organizadores te ayudan a despejar, categorizar y optimizar tu espacio para que todo tenga su lugar. El resultado es un hogar u oficina que funciona eficientemente y se siente tranquilo y acogedor.",
+      "Nuestro servicio de organización profesional va mas alla del simple orden. Trabajamos contigo para crear sistemas personalizados para armarios, cocinas, garajes y mas. Nuestros organizadores te ayudan a despejar, categorizar y optimizar tu espacio para que todo tenga su lugar. El resultado es un hogar u oficina que funciona eficientemente y se siente tranquilo y acogedor.",
   },
 ]
 
@@ -280,7 +280,7 @@ export default function ServiceDetailPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="flex-1 relative aspect-[3/4] rounded-xl overflow-hidden mt-8 shadow-lg">
+              <div className="flex-1 relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
                 <Image
                   src={service.secondaryImage || "/placeholder.svg"}
                   alt={`${title} detail`}
@@ -290,12 +290,12 @@ export default function ServiceDetailPage() {
               </div>
             </div>
 
-            {/* Text Content */}
-            <div>
-              <p className="text-lg md:text-xl font-semibold text-[#1a4d3a] mb-6 text-pretty">
+            {/* Text Content - Ajustado a Justificado y Centrado verticalmente */}
+            <div className="flex flex-col justify-center">
+              <p className="text-lg md:text-xl font-semibold text-[#1a4d3a] mb-6 text-justify text-pretty">
                 {subtitle}
               </p>
-              <p className="text-base text-gray-600 leading-relaxed text-pretty">
+              <p className="text-base text-gray-600 leading-relaxed text-justify text-pretty">
                 {description}
               </p>
             </div>
@@ -307,11 +307,7 @@ export default function ServiceDetailPage() {
       <section className="py-12 md:py-16 bg-[#1a4d3a]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 text-balance uppercase tracking-wide">
-              {language === "es"
-                ? "¿Tienes más preguntas?"
-                : "Do you have more questions?"}
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{t("promo.title")}</h2>
             <p className="text-white/85 mb-8 text-pretty">
               {language === "es"
                 ? "Deje su número de teléfono móvil y le devolveremos la llamada."

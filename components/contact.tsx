@@ -9,7 +9,7 @@ export default function Contact() {
   const { t } = useLanguage()
 
   return (
-    <section id="contact" className="py-16 md:py-24 bg-muted/30">
+    <section id="contact" className="pt-8 md:pt-12 pb-16 md:pb-24 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Contact Info */}
