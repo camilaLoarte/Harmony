@@ -286,7 +286,7 @@ export default function ContactForm() {
                             onValueChange={(value) => handleSelectChange("frequency", value)}
                         >
                             <SelectTrigger className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
-                                <SelectValue placeholder={language === "es" ? "Selecciona frecuencia" : "Select frequency"} />
+                                <SelectValue placeholder={language === "es" ? "Una vez" : "One Time"} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="once">{language === "es" ? "Una vez" : "One time"}</SelectItem>

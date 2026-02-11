@@ -1,6 +1,6 @@
 "use client"
 
-import { useFormState } from "react-dom"
+import { useActionState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Phone } from "lucide-react"
@@ -11,7 +11,7 @@ const initialState = { success: false, message: "" }
 
 export default function Promo() {
   const { t } = useLanguage()
-  const [state, action] = useFormState(submitPromoPhone, initialState)
+  const [state, action] = useActionState(submitPromoPhone, initialState)
 
   return (
     //<div className="mt-12 p-6 rounded-xl bg-gradient-to-r from-[#1a4d3a] to-[#22513c]">

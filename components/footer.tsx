@@ -53,11 +53,36 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">{t("footer.services")}</h3>
             <ul className="space-y-2">
-              <li className="text-background/70 text-sm">{t("footer.residential")}</li>
-              <li className="text-background/70 text-sm">{t("footer.deepCleaning")}</li>
-              <li className="text-background/70 text-sm">{t("footer.commercial")}</li>
-              <li className="text-background/70 text-sm">Move In/Move Out</li>
-              <li className="text-background/70 text-sm">Organizing Services</li>
+              <li>
+                <Link href="/servicios/residential-cleaning" className="text-background/70 hover:text-background text-sm transition-colors">
+                  {t("footer.residential")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/deep-cleaning" className="text-background/70 hover:text-background text-sm transition-colors">
+                  {t("footer.deepCleaning")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/commercial-cleaning" className="text-background/70 hover:text-background text-sm transition-colors">
+                  {t("footer.commercial")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/move-in-out" className="text-background/70 hover:text-background text-sm transition-colors">
+                  Move In/Move Out
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/special-occasions" className="text-background/70 hover:text-background text-sm transition-colors">
+                  {t("services.specialOccasions.title")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/servicios/organizing" className="text-background/70 hover:text-background text-sm transition-colors">
+                  Organizing Services
+                </Link>
+              </li>
             </ul>
           </div>
 
