@@ -25,7 +25,7 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary/20">
               <img
-                src="/professional-cleaner-organizing-and-cleaning-a-mod.jpg"
+                src="/limpieza.jpg"
                 alt="Professional cleaning service"
                 className="object-cover w-full h-full"
               />

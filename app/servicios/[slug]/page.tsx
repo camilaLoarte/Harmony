@@ -12,6 +12,7 @@ import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 import Footer from "@/components/footer"
 import Promo from "@/components/promo"
+import ImageComparison from "@/components/image-comparison"
 
 interface ServiceData {
   slug: string
@@ -272,23 +273,15 @@ export default function ServiceDetailPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Images */}
-            <div className="flex gap-4">
-              <div className="flex-1 relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src={service.image || "/placeholder.svg"}
-                  alt={title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex-1 relative aspect-[3/4] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src={service.secondaryImage || "/placeholder.svg"}
-                  alt={`${title} detail`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+            {/* Before/After Comparison */}
+            <div className="w-full">
+              <ImageComparison
+                beforeImage={service.secondaryImage}
+                afterImage={service.image}
+                beforeLabel={language === "es" ? "Antes" : "Before"}
+                afterLabel={language === "es" ? "Después" : "After"}
+                alt={title}
+              />
             </div>
 
             {/* Text Content - Ajustado a Justificado y Centrado verticalmente */}
@@ -299,6 +292,14 @@ export default function ServiceDetailPage() {
               <p className="text-base text-gray-600 leading-relaxed text-justify text-pretty">
                 {description}
               </p>
+
+              <div className="mt-8">
+                <Button asChild size="lg" className="bg-[#1a4d3a] hover:bg-[#163d2f] text-white uppercase tracking-wider">
+                  <Link href="/contacto">
+                    {t("nav.getQuote")}
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

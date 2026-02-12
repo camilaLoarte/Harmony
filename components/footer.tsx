@@ -27,22 +27,22 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">{t("footer.quickLinks")}</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="#home" className="text-background/70 hover:text-background text-sm transition-colors">
+                <Link href="/#home" className="text-background/70 hover:text-background text-sm transition-colors">
                   {t("nav.home")}
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="text-background/70 hover:text-background text-sm transition-colors">
+                <Link href="/#services" className="text-background/70 hover:text-background text-sm transition-colors">
                   {t("nav.services")}
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="text-background/70 hover:text-background text-sm transition-colors">
+                <Link href="/#about" className="text-background/70 hover:text-background text-sm transition-colors">
                   {t("nav.about")}
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-background/70 hover:text-background text-sm transition-colors">
+                <Link href="/contacto" className="text-background/70 hover:text-background text-sm transition-colors">
                   {t("nav.contact")}
                 </Link>
               </li>
@@ -70,7 +70,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/servicios/move-in-out" className="text-background/70 hover:text-background text-sm transition-colors">
-                  Move In/Move Out
+                  {t("services.moveInOut.title")}
                 </Link>
               </li>
               <li>
@@ -80,7 +80,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/servicios/organizing" className="text-background/70 hover:text-background text-sm transition-colors">
-                  Organizing Services
+                  {t("services.organizing.title")}
                 </Link>
               </li>
             </ul>
@@ -139,6 +139,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   )
 }

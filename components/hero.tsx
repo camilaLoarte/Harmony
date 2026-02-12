@@ -10,12 +10,12 @@ export default function Hero() {
   const whatsappUrl = "https://api.whatsapp.com/send?phone=12403083255&text=Hi%20Harmony,%20%20I%20need%20information%20about%20your%20services."
 
   return (
-    <section id="home" className="relative pt-16 md:pt-20 pb-0 overflow-hidden bg-[#f8f6f3]">
+    <section id="home" className="relative pt-4 md:pt-4 pb-0 overflow-hidden bg-[#f8f6f3]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start mt-8 lg:mt-0">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-0">
           {/* Left Image */}
-          <div className="relative order-2 lg:order-1 self-center">
-            <div className="relative aspect-square lg:aspect-[4/3] overflow-hidden shadow-xl">
+          <div className="relative order-2 lg:order-1 h-full">
+            <div className="relative aspect-square lg:aspect-auto lg:h-full overflow-hidden shadow-xl">
               <img
                 src="/professional-cleaner-organizing-and-cleaning-a-mod.jpg"
                 alt="Professional cleaner in white protective suit"
@@ -25,8 +25,8 @@ export default function Hero() {
           </div>
 
           {/* Right Content */}
-          <div className="text-left order-1 lg:order-2 lg:pt-8 pb-8">
-            <p className="text-lg md:text-xl italic text-[#1a4d3a] mb-4">
+          <div className="text-left order-1 lg:order-2 lg:pt-24 pb-8">
+            <p className="text-lg md:text-xl italic text-[#1a4d3a] mb-1">
               {t("hero.tagline")}
             </p>
 
@@ -35,7 +35,7 @@ export default function Hero() {
             </h1>
 
             {/* Styled Buttons with Elegant Corner Brackets */}
-            <div className="flex flex-col sm:flex-row gap-6 mb-8">
+            <div className="flex flex-col sm:flex-row gap-10 mb-8">
               {/* Request Estimate Button */}
               <Link href="/contacto" className="group">
                 <div className="relative bg-white px-8 py-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">

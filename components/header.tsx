@@ -12,10 +12,10 @@ export default function Header() {
   const { t } = useLanguage()
 
   const navItems = [
-    { name: t("nav.home"), href: "#home" },
-    { name: t("nav.services"), href: "#services" },
-    { name: t("nav.about"), href: "#about" },
-    { name: t("nav.process"), href: "#process" },
+    { name: t("nav.home"), href: "/#home" },
+    { name: t("nav.services"), href: "/#services" },
+    { name: t("nav.about"), href: "/#about" },
+    { name: t("nav.process"), href: "/#process" },
     { name: t("nav.contact"), href: "/contacto" },
   ]
 
@@ -24,7 +24,7 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="#home" className="flex items-center gap-2">
+          <Link href="/#home" className="flex items-center gap-2">
             <div className="relative">
               <span className="text-2xl md:text-3xl text-primary font-semibold tracking-wide">HARMONY</span>
               <svg
