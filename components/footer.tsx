@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Facebook, Instagram, Mail, Phone } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
@@ -13,11 +14,16 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">H</span>
+            <div className="flex items-center mb-4">
+              <div className="overflow-hidden w-48 h-12 flex items-center justify-center">
+                <Image
+                  src="/harmony_logo.png"
+                  alt="Harmony Logo"
+                  width={250}
+                  height={80}
+                  className="scale-[2.5] transform object-contain brightness-0 invert"
+                />
               </div>
-              <span className="font-bold text-2xl">Harmony</span>
             </div>
             <p className="text-background/70 text-sm text-pretty">{t("footer.tagline")}</p>
           </div>

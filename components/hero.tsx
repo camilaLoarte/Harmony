@@ -14,10 +14,10 @@ export default function Hero() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-0">
           {/* Left Image */}
-          <div className="relative order-2 lg:order-1 h-full">
-            <div className="relative aspect-square lg:aspect-auto lg:h-full overflow-hidden shadow-xl">
+          <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
+            <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[600px] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
               <img
-                src="/professional-cleaner-organizing-and-cleaning-a-mod.jpg"
+                src="/limpieza.jpg"
                 alt="Professional cleaner in white protective suit"
                 className="object-cover w-full h-full"
               />
@@ -25,7 +25,7 @@ export default function Hero() {
           </div>
 
           {/* Right Content */}
-          <div className="text-left order-1 lg:order-2 lg:pt-24 pb-8">
+          <div className="text-left order-1 lg:order-2 lg:pt-24 pb-2">
             <p className="text-lg md:text-xl italic text-[#1a4d3a] mb-1">
               {t("hero.tagline")}
             </p>

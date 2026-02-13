@@ -5,21 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Phone, Menu, X } from "lucide-react"
 import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
-import LanguageSwitcher from "@/components/language-switcher"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import Header from "@/components/header"
 import ContactForm from "@/components/contact-form"
 import Footer from "@/components/footer"
 
 export default function ContactPage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { t, language } = useLanguage()
-
-  const navItems = [
-    { name: t("nav.home"), href: "/" },
-    { name: t("nav.services"), href: "/#services" },
-    { name: t("nav.about"), href: "/#about" },
-    { name: t("nav.contact"), href: "/contacto" },
-  ]
 
   const faqItems =
     language === "es"
@@ -78,86 +69,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#f8f6f3]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl md:text-3xl text-[#1a4d3a] font-serif tracking-wide">HARMONY</span>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-gray-600 hover:text-[#1a4d3a] transition-colors uppercase tracking-wide"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="hidden md:flex items-center gap-4">
-              <a
-                href="tel:+12403083255"
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#1a4d3a] transition-colors"
-              >
-                <Phone className="w-4 h-4 text-[#1a4d3a]" />
-                <span>+1 (240) 308-3255</span>
-              </a>
-              <LanguageSwitcher />
-              <Button
-                asChild
-                className="bg-[#1a4d3a] hover:bg-[#163d2f] text-white uppercase text-xs tracking-wider px-6"
-              >
-                <Link href="/contacto">{language === "es" ? "Contáctame" : "Contact Me"}</Link>
-              </Button>
-            </div>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
-          </div>
-
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200 bg-white">
-              <nav className="flex flex-col gap-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-base font-medium text-gray-600 hover:text-[#1a4d3a] transition-colors py-2 uppercase"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                <a
-                  href="tel:+12403083255"
-                  className="flex items-center gap-2 text-base text-gray-600 hover:text-[#1a4d3a] transition-colors py-2"
-                >
-                  <Phone className="w-4 h-4 text-[#1a4d3a]" />
-                  <span>+1 (240) 308-3255</span>
-                </a>
-                <div className="py-2">
-                  <LanguageSwitcher />
-                </div>
-                <Button asChild className="w-full bg-[#1a4d3a] hover:bg-[#163d2f] text-white">
-                  <Link href="/contacto" onClick={() => setMobileMenuOpen(false)}>
-                    {language === "es" ? "Contáctame" : "Contact Me"}
-                  </Link>
-                </Button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Main Content */}
       <main className="pt-24 md:pt-32 pb-16">

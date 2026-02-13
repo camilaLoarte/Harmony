@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Phone, Menu, X, ArrowLeft } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
-import LanguageSwitcher from "@/components/language-switcher"
+import Header from "@/components/header"
 import Footer from "@/components/footer"
 import Promo from "@/components/promo"
 import ImageComparison from "@/components/image-comparison"
@@ -29,8 +29,8 @@ interface ServiceData {
 const servicesData: ServiceData[] = [
   {
     slug: "residential-cleaning",
-    image: "/services/modern-clean-living-room-with-natural-light-and-or.jpg",
-    secondaryImage: "/services/residenciales.jpg",
+    image: "/services/DespuesDP.png",
+    secondaryImage: "/services/AntesDP.png",
     titleEn: "Residential Cleaning",
     titleEs: "Limpieza Residencial",
     subtitleEn:
@@ -44,8 +44,8 @@ const servicesData: ServiceData[] = [
   },
   {
     slug: "deep-cleaning",
-    image: "/services/cocinass.jpg",
-    secondaryImage: "/services/depa3.jpg",
+    image: "/services/DespuesDC.png",
+    secondaryImage: "/services/AntesDC.png",
     titleEn: "Deep Cleaning",
     titleEs: "Limpieza Profunda",
     subtitleEn:
@@ -59,8 +59,8 @@ const servicesData: ServiceData[] = [
   },
   {
     slug: "commercial-cleaning",
-    image: "/services/restau.jpg",
-    secondaryImage: "/services/restau2.jpg",
+    image: "/services/DespuesCC.png",
+    secondaryImage: "/services/AntesCC.png",
     titleEn: "Commercial Cleaning",
     titleEs: "Limpieza Comercial",
     subtitleEn:
@@ -74,8 +74,8 @@ const servicesData: ServiceData[] = [
   },
   {
     slug: "move-in-out",
-    image: "/services/depa3.jpg",
-    secondaryImage: "/services/depa2.jpg",
+    image: "/services/DespuesMM.png",
+    secondaryImage: "/services/AntesMM.png",
     titleEn: "Move In / Move Out",
     titleEs: "Mudanzas",
     subtitleEn:
@@ -89,8 +89,8 @@ const servicesData: ServiceData[] = [
   },
   {
     slug: "special-occasions",
-    image: "/services/even1.jpg",
-    secondaryImage: "/services/even.jpg",
+    image: "/services/DespuesFE.png",
+    secondaryImage: "/services/AntesFE.png",
     titleEn: "Special Occasions",
     titleEs: "Ocasiones Especiales",
     subtitleEn:
@@ -104,8 +104,8 @@ const servicesData: ServiceData[] = [
   },
   {
     slug: "organizing",
-    image: "/services/organizacion.jpg",
-    secondaryImage: "/services/organizacion2.jpg",
+    image: "/services/DespuesOS.png",
+    secondaryImage: "/services/AntesOS.png",
     titleEn: "Organizing Services",
     titleEs: "Servicios de Organizacion",
     subtitleEn:
@@ -123,17 +123,9 @@ export default function ServiceDetailPage() {
   const params = useParams()
   const slug = params.slug as string
   const { language, t } = useLanguage()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [phone, setPhone] = useState("")
 
   const service = servicesData.find((s) => s.slug === slug)
-
-  const navItems = [
-    { name: t("nav.home"), href: "/" },
-    { name: t("nav.services"), href: "/#services" },
-    { name: t("nav.about"), href: "/#about" },
-    { name: t("nav.contact"), href: "/contacto" },
-  ]
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -164,91 +156,10 @@ export default function ServiceDetailPage() {
 
   return (
     <div className="min-h-screen bg-[#f8f6f3]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl md:text-3xl text-[#1a4d3a] font-serif tracking-wide">HARMONY</span>
-            </Link>
-
-            <nav className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-sm font-medium text-gray-600 hover:text-[#1a4d3a] transition-colors uppercase tracking-wide"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-
-            <div className="hidden md:flex items-center gap-4">
-              <a
-                href="tel:+12403083255"
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#1a4d3a] transition-colors"
-              >
-                <Phone className="w-4 h-4 text-[#1a4d3a]" />
-                <span>+1 (240) 308-3255</span>
-              </a>
-              <LanguageSwitcher />
-              <Button
-                asChild
-                className="bg-[#1a4d3a] hover:bg-[#163d2f] text-white uppercase text-xs tracking-wider px-6"
-              >
-                <Link href="/contacto">
-                  {language === "es" ? "Contactame" : "Contact Me"}
-                </Link>
-              </Button>
-            </div>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
-          </div>
-
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200 bg-white">
-              <nav className="flex flex-col gap-4">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-base font-medium text-gray-600 hover:text-[#1a4d3a] transition-colors py-2 uppercase"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-                <a
-                  href="tel:+12403083255"
-                  className="flex items-center gap-2 text-base text-gray-600 hover:text-[#1a4d3a] transition-colors py-2"
-                >
-                  <Phone className="w-4 h-4 text-[#1a4d3a]" />
-                  <span>+1 (240) 308-3255</span>
-                </a>
-                <div className="py-2">
-                  <LanguageSwitcher />
-                </div>
-                <Button asChild className="w-full bg-[#1a4d3a] hover:bg-[#163d2f] text-white">
-                  <Link href="/contacto" onClick={() => setMobileMenuOpen(false)}>
-                    {language === "es" ? "Contactame" : "Contact Me"}
-                  </Link>
-                </Button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Banner */}
-      <section className="relative pt-16 md:pt-20">
+      <section className="relative pt-24 md:pt-32">
         <div className="relative h-[50vh] md:h-[60vh] overflow-hidden">
           <Image
             src={service.image || "/placeholder.svg"}

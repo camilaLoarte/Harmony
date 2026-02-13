@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, Phone, X } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 
@@ -20,27 +21,19 @@ export default function Header() {
   ]
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <Link href="/#home" className="flex items-center gap-2">
-            <div className="relative">
-              <span className="text-2xl md:text-3xl text-primary font-semibold tracking-wide">HARMONY</span>
-              <svg
-                className="absolute -bottom-1 left-0 w-full h-2"
-                viewBox="0 0 120 8"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2 6C20 2 40 1 60 2C80 3 100 4 118 6"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  className="text-primary"
-                />
-              </svg>
+          <Link href="/#home" className="flex items-center justify-center overflow-hidden w-56 h-16 md:w-64 md:h-20 relative">
+            <div className="relative w-full h-full flex items-center justify-center">
+              <Image
+                src="/harmony_logo.png"
+                alt="Harmony Logo"
+                fill
+                className="scale-[2.5] transform object-contain"
+                priority
+              />
             </div>
           </Link>
 
