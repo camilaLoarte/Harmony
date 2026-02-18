@@ -20,7 +20,7 @@ export default function Contact() {
             <p className="text-lg text-muted-foreground mb-8 text-pretty">{t("contact.subtitle")}</p>
 
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Phone className="w-6 h-6 text-[#1a4d3a]" />
                 </div>
@@ -28,26 +28,28 @@ export default function Contact() {
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h3>
                   <a href="tel:+12403083255" className="text-muted-foreground hover:text-[#1a4d3a] transition-colors">
                     +1 (240) 308-3255
+                    <br />
+                    +1 (240) 888-3097
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Mail className="w-6 h-6 text-[#1a4d3a]" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.email")}</h3>
                   <a
-                    href="mailto:info@harmony.com"
+                    href="mailto:info@thecleanharmony.com"
                     className="text-muted-foreground hover:text-[#1a4d3a] transition-colors"
                   >
-                    info@harmony.com
+                    info@thecleanharmony.com
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#1a4d3a]/10 rounded-lg flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-6 h-6 text-[#1a4d3a]" />
                 </div>

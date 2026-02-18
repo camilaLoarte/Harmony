@@ -1,7 +1,6 @@
 "use client"
 
-import type React from "react"
-import { useState, useMemo } from "react"
+import React, { useState, useMemo, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -36,6 +35,19 @@ export default function ContactForm() {
         addressDetails: "",
         message: "",
     })
+
+    // Refs for scrolling to elements with errors
+    const fieldRefs = {
+        name: useRef<HTMLInputElement>(null),
+        email: useRef<HTMLInputElement>(null),
+        phone: useRef<HTMLInputElement>(null),
+        serviceType: useRef<HTMLButtonElement>(null),
+        propertyType: useRef<HTMLDivElement>(null),
+        squareMeters: useRef<HTMLInputElement>(null),
+        frequency: useRef<HTMLButtonElement>(null),
+        serviceLocation: useRef<HTMLDivElement>(null),
+        addressDetails: useRef<HTMLTextAreaElement>(null),
+    }
 
     // State for form validation errors
     const [errors, setErrors] = useState<Record<string, string>>({})
@@ -76,8 +88,7 @@ export default function ContactForm() {
 
         const frequencyMultiplier: Record<string, number> = {
             once: 1.0,
-            weekly: 0.75,
-            biweekly: 0.85,
+            weekly: 0.95,
             monthly: 0.9,
         }
 
@@ -95,8 +106,53 @@ export default function ContactForm() {
         }
     }, [formData.squareMeters, formData.serviceType, formData.frequency])
 
+    const scrollToField = (fieldName: string) => {
+        const ref = fieldRefs[fieldName as keyof typeof fieldRefs]
+        if (ref && ref.current) {
+            ref.current.scrollIntoView({ behavior: "smooth", block: "center" })
+            if ('focus' in ref.current) {
+                (ref.current as any).focus()
+            }
+        }
+    }
+
+    const validateForm = () => {
+        const newErrors: Record<string, string> = {}
+        const requiredFields = ["name", "email", "phone", "serviceType", "serviceLocation", "addressDetails"]
+
+        requiredFields.forEach(field => {
+            if (!formData[field as keyof typeof formData]) {
+                newErrors[field] = language === "es" ? "Este campo es obligatorio" : "This field is required"
+            }
+        })
+
+        // Basic email validation
+        if (formData.email && !/^\S+@\S+\.\S+$/.test(formData.email)) {
+            newErrors.email = language === "es" ? "Email inválido" : "Invalid email"
+        }
+
+        setErrors(newErrors)
+
+        if (Object.keys(newErrors).length > 0) {
+            // Find the first field with an error and scroll to it
+            const firstErrorField = requiredFields.find(field => newErrors[field])
+            if (firstErrorField) {
+                scrollToField(firstErrorField)
+            }
+            return false
+        }
+
+        return true
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!validateForm()) {
+            toast.error(language === "es" ? "Por favor complete los campos obligatorios." : "Please fill in the required fields.")
+            return
+        }
+
         setIsSubmitting(true)
 
         const formDataToSend = new FormData()
@@ -107,8 +163,6 @@ export default function ContactForm() {
         formDataToSend.append("serviceLocation", formData.serviceLocation)
         formDataToSend.append("squareMeters", formData.squareMeters)
         formDataToSend.append("addressDetails", formData.addressDetails)
-        // Note: The server action only reads these fields currently. 
-        // If you need other fields on the server, you must update the action and schema.
 
         try {
             const result = await submitContactForm(null, formDataToSend)
@@ -133,7 +187,10 @@ export default function ContactForm() {
             } else {
                 if (result.errors) {
                     setErrors(result.errors)
-                    toast.error(language === "es" ? "Por favor corrija los errores en el formulario." : "Please fix the errors in the form.")
+                    // Find first server-side error and scroll
+                    const firstErrorField = Object.keys(result.errors)[0]
+                    scrollToField(firstErrorField)
+                    toast.error(language === "es" ? "Por favor corrija los errores." : "Please fix the errors.")
                 } else {
                     toast.error(result.message)
                 }
@@ -180,7 +237,7 @@ export default function ContactForm() {
                                 value={formData.serviceType}
                                 onValueChange={(value) => handleSelectChange("serviceType", value)}
                             >
-                                <SelectTrigger className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                                <SelectTrigger ref={fieldRefs.serviceType} className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
                                     <SelectValue placeholder={language === "es" ? "Selecciona un servicio" : "Select a service"} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -203,6 +260,7 @@ export default function ContactForm() {
                                 value={formData.propertyType}
                                 onValueChange={(value) => handleSelectChange("propertyType", value)}
                                 className="flex flex-col space-y-2"
+                                ref={fieldRefs.propertyType}
                             >
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="house" id="house-page" className="border-gray-400 text-[#1a4d3a]" />
@@ -240,13 +298,12 @@ export default function ContactForm() {
                                 value={formData.frequency}
                                 onValueChange={(value) => handleSelectChange("frequency", value)}
                             >
-                                <SelectTrigger className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                                <SelectTrigger ref={fieldRefs.frequency} className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
                                     <SelectValue placeholder={language === "es" ? "Una vez" : "One Time"} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="once">{language === "es" ? "Una vez" : "One time"}</SelectItem>
-                                    <SelectItem value="weekly">{language === "es" ? "Semanal (-25%)" : "Weekly (-25%)"}</SelectItem>
-                                    <SelectItem value="biweekly">{language === "es" ? "Quincenal (-15%)" : "Biweekly (-15%)"}</SelectItem>
+                                    <SelectItem value="weekly">{language === "es" ? "Semanal (-5%)" : "Weekly (-5%)"}</SelectItem>
                                     <SelectItem value="monthly">{language === "es" ? "Mensual (-10%)" : "Monthly (-10%)"}</SelectItem>
                                 </SelectContent>
                             </Select>
@@ -261,6 +318,7 @@ export default function ContactForm() {
                                 value={formData.serviceLocation}
                                 onValueChange={(value) => handleSelectChange("serviceLocation", value)}
                                 className="flex flex-col space-y-2"
+                                ref={fieldRefs.serviceLocation}
                             >
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="maryland" id="maryland-page" className="border-gray-400 text-[#1a4d3a]" />
@@ -294,6 +352,7 @@ export default function ContactForm() {
                             </Label>
                             <Input
                                 name="name"
+                                ref={fieldRefs.name}
                                 placeholder={language === "es" ? "Escribe tu nombre completo" : "Enter your full name"}
                                 value={formData.name}
                                 onChange={handleChange}
@@ -309,6 +368,7 @@ export default function ContactForm() {
                             </Label>
                             <Input
                                 name="phone"
+                                ref={fieldRefs.phone}
                                 type="tel"
                                 placeholder={language === "es" ? "Escribe tu número" : "Enter your phone number"}
                                 value={formData.phone}
@@ -325,6 +385,7 @@ export default function ContactForm() {
                             </Label>
                             <Input
                                 name="email"
+                                ref={fieldRefs.email}
                                 type="email"
                                 placeholder={language === "es" ? "tucorreo@ejemplo.com" : "youremail@example.com"}
                                 value={formData.email}
@@ -342,6 +403,7 @@ export default function ContactForm() {
                             </Label>
                             <Input
                                 name="squareMeters"
+                                ref={fieldRefs.squareMeters}
                                 type="number"
                                 placeholder={language === "es" ? "Ingresa pies cuadrados" : "Enter square feet"}
                                 value={formData.squareMeters}
@@ -377,6 +439,7 @@ export default function ContactForm() {
                             </Label>
                             <Textarea
                                 name="addressDetails"
+                                ref={fieldRefs.addressDetails}
                                 placeholder={
                                     language === "es"
                                         ? "Número de casa, calles, referencias, etc."

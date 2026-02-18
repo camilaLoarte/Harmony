@@ -13,19 +13,21 @@ export default function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8">
           {/* Brand */}
-          <div>
-            <div className="flex items-center mb-4">
-              <div className="overflow-hidden w-48 h-12 flex items-center justify-center">
+          <div className="flex flex-col items-center lg:items-start">
+            <div className="flex items-center justify-center mb-6">
+              <div className="relative w-72 h-20 overflow-hidden">
                 <Image
                   src="/harmony_logo.png"
                   alt="Harmony Logo"
-                  width={250}
-                  height={80}
-                  className="scale-[2.5] transform object-contain brightness-0 invert"
+                  fill
+                  className="scale-[3.2] transform object-contain brightness-0 invert"
+                  priority
                 />
               </div>
             </div>
-            <p className="text-background/70 text-sm text-pretty">{t("footer.tagline")}</p>
+            <p className="text-background/70 text-sm text-center lg:text-left text-pretty">
+              {t("footer.tagline")}
+            </p>
           </div>
 
           {/* Quick Links */}
@@ -102,16 +104,16 @@ export default function Footer() {
                   className="flex items-center gap-2 text-background/70 hover:text-background text-sm transition-colors"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>+1 (240) 308-3255</span>
+                  <span>+1 (240) 308-3255 ;  +1 (240) 888-3097</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@harmony.com"
+                  href="mailto:info@thecleanharmony.com"
                   className="flex items-center gap-2 text-background/70 hover:text-background text-sm transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  <span>info@harmony.com</span>
+                  <span>info@thecleanharmony.com</span>
                 </a>
               </li>
             </ul>

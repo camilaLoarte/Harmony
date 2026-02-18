@@ -1,13 +1,15 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Phone, Menu, X } from "lucide-react"
-import Link from "next/link"
 import { useLanguage } from "@/contexts/language-context"
 import Header from "@/components/header"
 import ContactForm from "@/components/contact-form"
 import Footer from "@/components/footer"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export default function ContactPage() {
   const { t, language } = useLanguage()
@@ -37,7 +39,7 @@ export default function ContactPage() {
         },
         {
           question: "¿Cómo puedo contactar con Harmony?",
-          answer: "Los clientes pueden contactar a Harmony al +1 (240) 308-3255.",
+          answer: "Los clientes pueden contactar a Harmony al +1 (240) 308-3255; +1 (240) 888-3097 o a info@thecleanharmony.com.",
         },
       ]
       : [
