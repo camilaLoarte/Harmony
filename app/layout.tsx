@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description:
     "Transform your space into a sanctuary of peace and cleanliness with Harmony's professional cleaning services.",
   generator: "v0.app",
+  icons: {
+    icon: "/Harmony icon.png",
+  },
 }
 
 export default function RootLayout({
