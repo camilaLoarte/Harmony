@@ -120,7 +120,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-4 mt-6">
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/profile.php?id=61561817236173"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"
@@ -128,7 +128,7 @@ export default function Footer() {
                 <Facebook className="w-4 h-4" />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/the.clean.harmony/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 bg-background/10 hover:bg-background/20 rounded-full flex items-center justify-center transition-colors"

@@ -43,7 +43,7 @@ export default function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {item.name}
               </Link>
@@ -54,7 +54,7 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <a
               href="tel:+12403083255"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-2 text-base text-muted-foreground hover:text-foreground transition-colors"
             >
               <Phone className="w-4 h-4" />
               <span> +1 (240) 888-3097</span>

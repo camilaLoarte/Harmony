@@ -7,9 +7,8 @@ import { resend } from "@/lib/resend"
 import { AdminEmail } from "@/components/emails/admin-email"
 import { UserEmail } from "@/components/emails/user-email"
 
-/* -------------------------------------------------------------------------- */
-/*  CONTACT FORM                                                              */
-/* -------------------------------------------------------------------------- */
+// 1. Definimos el remitente oficial de tu dominio para evitar bloqueos
+const SENDER_EMAIL = "Harmony <notificaciones@thecleanharmony.com>";
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -55,11 +54,13 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       },
     })
 
+    // ENVÍO AL ADMINISTRADOR (A tu correo de prueba@...)
     if (process.env.ADMIN_EMAIL) {
       await resend.emails.send({
-        from: "Harmony <onboarding@resend.dev>",
+        from: SENDER_EMAIL, // USAMOS TU DOMINIO VERIFICADO
         to: process.env.ADMIN_EMAIL,
-        subject: "Nueva Solicitud de Servicio - Harmony",
+        reply_to: validatedData.email, // PERMITE RESPONDER AL CLIENTE DIRECTAMENTE
+        subject: `Nueva Solicitud de Servicio de ${validatedData.name}`,
         react: AdminEmail({
           name: validatedData.name,
           email: validatedData.email,
@@ -76,8 +77,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       })
     }
 
+    // ENVÍO DE CONFIRMACIÓN AL USUARIO
     await resend.emails.send({
-      from: "Harmony <onboarding@resend.dev>",
+      from: SENDER_EMAIL, // USAMOS TU DOMINIO VERIFICADO
       to: validatedData.email,
       subject: "Hemos recibido tu solicitud - Harmony",
       react: UserEmail({ name: validatedData.name }) as any,
@@ -86,6 +88,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     revalidatePath("/contacto")
     return { success: true, message: "Request received successfully!" }
   } catch (error) {
+    console.error("Error sending email:", error); // Añadido para que veas errores en consola
     if (error instanceof z.ZodError) {
       const fieldErrors: Record<string, string> = {}
       error.errors.forEach((err) => {
@@ -99,49 +102,68 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  PROMO (solo teléfono)                                                      */
+/* PROMO (solo teléfono)                                                     */
 /* -------------------------------------------------------------------------- */
 
-const promoPhoneSchema = z.object({
-  phone: z
-    .string()
-    .min(1, "Phone is required")
-    .transform((val) => val.trim().replace(/[^\d+]/g, ""))
-    .refine((val) => /^\+?\d{8,15}$/.test(val), {
-      message: "Invalid phone. Use 8-15 digits (optional +).",
-    }),
+const promoSchema = z.object({
+  phone: z.string().min(1, "Phone is required"),
 })
 
 export async function submitPromoPhone(prevState: any, formData: FormData) {
   try {
-    const rawData = { phone: formData.get("phone") }
-    const { phone } = promoPhoneSchema.parse(rawData)
+    const rawData = {
+      phone: formData.get("phone"),
+    }
 
-    // ✅ AQUÍ va el create()
+    const validatedData = promoSchema.parse(rawData)
+
     await prisma.promoLead.create({
       data: {
-        phone,
-        source: "PROMO",
+        phone: validatedData.phone,
       },
     })
 
+    // ENVÍO AL ADMINISTRADOR
     if (process.env.ADMIN_EMAIL) {
-      await resend.emails.send({
-        from: "Harmony <onboarding@resend.dev>",
-        to: process.env.ADMIN_EMAIL,
-        subject: "Nuevo teléfono desde Promo - Harmony",
-        text: `Nuevo lead desde Promo:\nTeléfono: ${phone}`,
-      })
+      try {
+        await resend.emails.send({
+          from: SENDER_EMAIL,
+          to: process.env.ADMIN_EMAIL,
+          subject: `Nueva Solicitud PROMO - Teléfono: ${validatedData.phone}`,
+          html: `
+            <div style="font-family: sans-serif; color: #1a4d3a;">
+              <h1 style="border-bottom: 2px solid #1a4d3a; padding-bottom: 10px;">Nueva Solicitud de Promo</h1>
+              <p>Se ha recibido un nuevo número de teléfono a través de la sección de promoción:</p>
+              <div style="background-color: #f8f6f3; padding: 20px; borderRadius: 8px;">
+                <p><strong>Teléfono:</strong> ${validatedData.phone}</p>
+                <p><strong>Fecha:</strong> ${new Date().toLocaleString()}</p>
+              </div>
+            </div>
+          `,
+        })
+      } catch (emailError) {
+        console.error("Error sending admin email for promo:", emailError)
+        // No bloqueamos el éxito de la operación si falla el email del admin
+      }
     }
 
-    return { success: true, message: "Phone received!" }
-  } catch (error: any) {
+    return {
+      success: true,
+      message: "¡Gracias! Te contactaremos pronto."
+    }
+  } catch (error) {
+    console.error("Error in submitPromoPhone:", error)
+
     if (error instanceof z.ZodError) {
       return {
         success: false,
-        message: error.errors[0]?.message ?? "Validation failed",
+        message: "Por favor ingresa un teléfono válido."
       }
     }
-    return { success: false, message: "Failed to submit phone. Please try again." }
+
+    return {
+      success: false,
+      message: "Hubo un error al procesar tu solicitud. Por favor intenta de nuevo."
+    }
   }
 }

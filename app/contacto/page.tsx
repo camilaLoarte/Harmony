@@ -65,7 +65,7 @@ export default function ContactPage() {
         },
         {
           question: "How can I contact Harmony?",
-          answer: "Customers can contact Harmony at +1 (240) 308-3255.",
+          answer: "Customers can contact Harmony at +1 (240) 308-3255 or +1 (240) 888-3097.",
         },
       ]
 

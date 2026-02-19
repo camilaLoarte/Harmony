@@ -18,6 +18,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 export default function ContactForm() {
     const { language } = useLanguage()
@@ -237,7 +238,13 @@ export default function ContactForm() {
                                 value={formData.serviceType}
                                 onValueChange={(value) => handleSelectChange("serviceType", value)}
                             >
-                                <SelectTrigger ref={fieldRefs.serviceType} className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                                <SelectTrigger
+                                    ref={fieldRefs.serviceType}
+                                    className={cn(
+                                        "bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                        errors.serviceType && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                    )}
+                                >
                                     <SelectValue placeholder={language === "es" ? "Selecciona un servicio" : "Select a service"} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -298,7 +305,13 @@ export default function ContactForm() {
                                 value={formData.frequency}
                                 onValueChange={(value) => handleSelectChange("frequency", value)}
                             >
-                                <SelectTrigger ref={fieldRefs.frequency} className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]">
+                                <SelectTrigger
+                                    ref={fieldRefs.frequency}
+                                    className={cn(
+                                        "bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                        errors.frequency && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                    )}
+                                >
                                     <SelectValue placeholder={language === "es" ? "Una vez" : "One Time"} />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -311,7 +324,10 @@ export default function ContactForm() {
 
                         {/* Service Location - Radio Buttons */}
                         <div>
-                            <Label className="text-sm font-medium mb-3 block text-[#1a4d3a]">
+                            <Label className={cn(
+                                "text-sm font-medium mb-3 block text-[#1a4d3a]",
+                                errors.serviceLocation && "text-red-500"
+                            )}>
                                 {language === "es" ? "Ubicación Del Servicio" : "Service Location"} *
                             </Label>
                             <RadioGroup
@@ -357,7 +373,10 @@ export default function ContactForm() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 required
-                                className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                                className={cn(
+                                    "bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                    errors.name && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                )}
                             />
                         </div>
 
@@ -374,7 +393,10 @@ export default function ContactForm() {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 required
-                                className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                                className={cn(
+                                    "bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                    errors.phone && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                )}
                             />
                         </div>
 
@@ -391,7 +413,10 @@ export default function ContactForm() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                                className={cn(
+                                    "bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                    errors.email && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                )}
                             />
                             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                         </div>
@@ -448,7 +473,10 @@ export default function ContactForm() {
                                 value={formData.addressDetails}
                                 onChange={handleChange}
                                 rows={2}
-                                className="resize-none bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]"
+                                className={cn(
+                                    "resize-none bg-white border-gray-300 focus:border-[#1a4d3a] focus:ring-[#1a4d3a]",
+                                    errors.addressDetails && "border-red-500 focus:border-red-500 focus:ring-red-500"
+                                )}
                             />
                             {errors.addressDetails && <p className="text-red-500 text-xs mt-1">{errors.addressDetails}</p>}
                         </div>
