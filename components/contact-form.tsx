@@ -164,6 +164,15 @@ export default function ContactForm() {
         formDataToSend.append("serviceLocation", formData.serviceLocation)
         formDataToSend.append("squareMeters", formData.squareMeters)
         formDataToSend.append("addressDetails", formData.addressDetails)
+        formDataToSend.append("propertyType", formData.propertyType)
+        formDataToSend.append("frequency", formData.frequency)
+        formDataToSend.append("preferredDate", formData.preferredDate)
+        formDataToSend.append("message", formData.message)
+        formDataToSend.append("language", language)
+
+        if (priceEstimate) {
+            formDataToSend.append("estimatedPrice", `${priceEstimate.priceRange.min} - ${priceEstimate.priceRange.max}`)
+        }
 
         try {
             const result = await submitContactForm(null, formDataToSend)
@@ -204,9 +213,18 @@ export default function ContactForm() {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        let value = e.target.value
+
+        if (e.target.name === "name") {
+            // Capitalize first letter of each word as the user types
+            value = value.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ')
+        }
+
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value,
+            [e.target.name]: value,
         })
     }
 
@@ -220,6 +238,7 @@ export default function ContactForm() {
     return (
         <>
             <form onSubmit={handleSubmit} className="space-y-8">
+                <input type="hidden" name="language" value={language} />
                 <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
                     {/* Left Column - Selection Fields */}
                     <div className="space-y-6">
@@ -419,6 +438,12 @@ export default function ContactForm() {
                                 )}
                             />
                             {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                        </div>
+
+                        <div className="border-b border-[#1a4d3a]/20 pb-2 mb-4 mt-8">
+                            <h3 className="text-xl font-serif font-bold text-[#1a4d3a]">
+                                {language === "es" ? "Detalles del Contrato" : "Contract Details"}
+                            </h3>
                         </div>
 
                         {/* Area Size */}

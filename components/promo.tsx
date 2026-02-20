@@ -10,7 +10,7 @@ import { submitPromoPhone } from "@/app/actions/contact-actions"
 const initialState = { success: false, message: "" }
 
 export default function Promo() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [state, action] = useActionState(submitPromoPhone, initialState)
 
   return (
@@ -31,6 +31,7 @@ export default function Promo() {
             className="flex-1 h-12 bg-white/95 backdrop-blur border-white/50 text-foreground placeholder:text-muted-foreground focus-visible:ring-white focus-visible:border-white"
             required
           />
+          <input type="hidden" name="language" value={language} />
           <Button
             type="submit"
             size="lg"

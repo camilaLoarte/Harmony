@@ -6,9 +6,28 @@ import { z } from "zod"
 import { resend } from "@/lib/resend"
 import { AdminEmail } from "@/components/emails/admin-email"
 import { UserEmail } from "@/components/emails/user-email"
+import fs from 'fs';
+import path from 'path';
 
 // 1. Definimos el remitente oficial de tu dominio para evitar bloqueos
 const SENDER_EMAIL = "Harmony <notificaciones@thecleanharmony.com>";
+
+// Logo paths and data for attachments
+const LOGO_PATH = path.join(process.cwd(), 'public', 'harmony_logo.png');
+let logoAttachment: { filename: string; content: Buffer; cid: string } | null = null;
+
+try {
+  if (fs.existsSync(LOGO_PATH)) {
+    const logoBuffer = fs.readFileSync(LOGO_PATH);
+    logoAttachment = {
+      filename: 'harmony_logo.png',
+      content: logoBuffer,
+      cid: 'logo',
+    };
+  }
+} catch (error) {
+  console.error("Error loading logo for email:", error);
+}
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -22,6 +41,8 @@ const contactSchema = z.object({
   frequency: z.string().optional(),
   preferredDate: z.string().optional(),
   message: z.string().optional(),
+  estimatedPrice: z.string().optional(),
+  language: z.string().optional().default("es"),
 })
 
 export async function submitContactForm(prevState: any, formData: FormData) {
@@ -38,6 +59,8 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       frequency: (formData.get("frequency") as string) || "",
       preferredDate: (formData.get("preferredDate") as string) || "",
       message: (formData.get("message") as string) || "",
+      estimatedPrice: (formData.get("estimatedPrice") as string) || "",
+      language: (formData.get("language") as string) || "es",
     }
 
     const validatedData = contactSchema.parse(rawData)
@@ -54,13 +77,17 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       },
     })
 
+    const lang = validatedData.language as "en" | "es";
+
     // ENVÍO AL ADMINISTRADOR (A tu correo de prueba@...)
     if (process.env.ADMIN_EMAIL) {
       await resend.emails.send({
         from: SENDER_EMAIL, // USAMOS TU DOMINIO VERIFICADO
         to: process.env.ADMIN_EMAIL,
         reply_to: validatedData.email, // PERMITE RESPONDER AL CLIENTE DIRECTAMENTE
-        subject: `Nueva Solicitud de Servicio de ${validatedData.name}`,
+        subject: lang === "es"
+          ? `Nueva Solicitud de Servicio de ${validatedData.name}`
+          : `New Service Request from ${validatedData.name}`,
         react: AdminEmail({
           name: validatedData.name,
           email: validatedData.email,
@@ -73,7 +100,10 @@ export async function submitContactForm(prevState: any, formData: FormData) {
           preferredDate: validatedData.preferredDate,
           propertyType: validatedData.propertyType,
           addressDetails: validatedData.addressDetails,
+          estimatedPrice: validatedData.estimatedPrice,
+          language: lang,
         }) as any,
+        attachments: logoAttachment ? [logoAttachment] : [],
       })
     }
 
@@ -81,8 +111,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     await resend.emails.send({
       from: SENDER_EMAIL, // USAMOS TU DOMINIO VERIFICADO
       to: validatedData.email,
-      subject: "Hemos recibido tu solicitud - Harmony",
-      react: UserEmail({ name: validatedData.name }) as any,
+      subject: lang === "es" ? "Hemos recibido tu solicitud - Harmony" : "We have received your request - Harmony",
+      react: UserEmail({ name: validatedData.name, language: lang }) as any,
+      attachments: logoAttachment ? [logoAttachment] : [],
     })
 
     revalidatePath("/contacto")
@@ -107,12 +138,14 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
 const promoSchema = z.object({
   phone: z.string().min(1, "Phone is required"),
+  language: z.string().optional().default("es"),
 })
 
 export async function submitPromoPhone(prevState: any, formData: FormData) {
   try {
     const rawData = {
       phone: formData.get("phone"),
+      language: formData.get("language") as string || "es",
     }
 
     const validatedData = promoSchema.parse(rawData)
@@ -123,23 +156,44 @@ export async function submitPromoPhone(prevState: any, formData: FormData) {
       },
     })
 
+    const lang = validatedData.language as "en" | "es";
+
     // ENVÍO AL ADMINISTRADOR
     if (process.env.ADMIN_EMAIL) {
       try {
         await resend.emails.send({
           from: SENDER_EMAIL,
           to: process.env.ADMIN_EMAIL,
-          subject: `Nueva Solicitud PROMO - Teléfono: ${validatedData.phone}`,
+          subject: lang === "es"
+            ? `Nueva Solicitud PROMO - Teléfono: ${validatedData.phone}`
+            : `New PROMO Request - Phone: ${validatedData.phone}`,
           html: `
-            <div style="font-family: sans-serif; color: #1a4d3a;">
-              <h1 style="border-bottom: 2px solid #1a4d3a; padding-bottom: 10px;">Nueva Solicitud de Promo</h1>
-              <p>Se ha recibido un nuevo número de teléfono a través de la sección de promoción:</p>
-              <div style="background-color: #f8f6f3; padding: 20px; borderRadius: 8px;">
-                <p><strong>Teléfono:</strong> ${validatedData.phone}</p>
-                <p><strong>Fecha:</strong> ${new Date().toLocaleString()}</p>
+            <div style="font-family: serif; color: #333; background-color: #f9fafb; padding: 40px 20px;">
+              <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e5e7eb;">
+                <div style="background-color: #ffffff; padding: 25px 40px; text-align: center;">
+                  <img src="cid:logo" alt="Harmony" style="width: 220px; height: auto;" />
+                </div>
+                <div style="padding: 40px; border-top: 1px solid #f3f4f6;">
+                  <h1 style="color: #165b37; margin: 0 0 10px 0; font-size: 26px; border-bottom: 2px solid #165b37; padding-bottom: 10px;">
+                    ${lang === "es" ? "Nueva Solicitud de Promo" : "New Promo Request"}
+                  </h1>
+                  <p style="color: #6b7280; font-size: 16px; margin: 0 0 30px 0;">
+                    ${lang === "es"
+              ? "Se ha recibido un nuevo número de teléfono a través de la sección de promoción:"
+              : "A new phone number has been received through the promotion section:"}
+                  </p>
+                  <div style="background-color: #ebf7ef; padding: 30px; border-radius: 4px; border: 1px solid #c7e1d1;">
+                    <p style="margin-bottom: 12px;"><strong>${lang === "es" ? "Teléfono" : "Phone"}:</strong> ${validatedData.phone}</p>
+                    <p style="margin: 0;"><strong>${lang === "es" ? "Fecha" : "Date"}:</strong> ${new Date().toLocaleString()}</p>
+                  </div>
+                </div>
+                <div style="padding: 25px; background-color: #f9fafb; border-top: 1px solid #f3f4f6; text-align: center;">
+                  <p style="font-size: 12px; color: #9ca3af; margin: 0;">thecleanharmony.com</p>
+                </div>
               </div>
             </div>
           `,
+          attachments: logoAttachment ? [logoAttachment] : [],
         })
       } catch (emailError) {
         console.error("Error sending admin email for promo:", emailError)
@@ -149,7 +203,7 @@ export async function submitPromoPhone(prevState: any, formData: FormData) {
 
     return {
       success: true,
-      message: "¡Gracias! Te contactaremos pronto."
+      message: lang === "es" ? "¡Gracias! Te contactaremos pronto." : "Thank you! We will contact you soon."
     }
   } catch (error) {
     console.error("Error in submitPromoPhone:", error)

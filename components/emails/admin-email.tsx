@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 
 interface AdminEmailProps {
@@ -13,6 +12,8 @@ interface AdminEmailProps {
     preferredDate?: string;
     propertyType?: string;
     addressDetails?: string;
+    estimatedPrice?: string;
+    language?: 'en' | 'es';
 }
 
 export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
@@ -27,36 +28,121 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
     preferredDate,
     propertyType,
     addressDetails,
-}) => (
-    <div style={{ fontFamily: 'sans-serif', color: '#1a4d3a' }}>
-        <h1 style={{ borderBottom: '2px solid #1a4d3a', paddingBottom: '10px' }}>Nuevo Mensaje de Contacto</h1>
-        <p>Has recibido una nueva solicitud de servicio a través del sitio web.</p>
+    estimatedPrice,
+    language = 'es',
+}) => {
+    const isEn = language === 'en';
 
-        <div style={{ backgroundColor: '#f8f6f3', padding: '20px', borderRadius: '8px' }}>
-            <h2 style={{ fontSize: '18px', marginTop: '0' }}>Detalles del Cliente</h2>
-            <ul style={{ listStyleType: 'none', padding: '0' }}>
-                <li style={{ marginBottom: '10px' }}><strong>Nombre:</strong> {name}</li>
-                <li style={{ marginBottom: '10px' }}><strong>Email:</strong> {email}</li>
-                <li style={{ marginBottom: '10px' }}><strong>Teléfono:</strong> {phone}</li>
-            </ul>
+    const labels = {
+        title: isEn ? "New Contact Message" : "Nuevo Mensaje de Contacto",
+        subtitle: isEn ? "You have received a new service request through the website." : "Has recibido una nueva solicitud de servicio a través del sitio web.",
+        clientDetails: isEn ? "Client Details" : "Detalles del Cliente",
+        name: isEn ? "Name:" : "Nombre:",
+        email: isEn ? "Email:" : "Email:",
+        phone: isEn ? "Phone:" : "Teléfono:",
+        serviceDetails: isEn ? "Service Details" : "Detalles del Servicio",
+        type: isEn ? "Service Type:" : "Tipo de Servicio:",
+        location: isEn ? "Location:" : "Ubicación:",
+        size: isEn ? "Size (sq ft):" : "Tamaño (pies²):",
+        property: isEn ? "Property Type:" : "Tipo de Propiedad:",
+        frequencyLabel: isEn ? "Frequency:" : "Frecuencia:",
+        date: isEn ? "Preferred Date:" : "Fecha Preferida:",
+        address: isEn ? "Address:" : "Dirección:",
+        estimateTitle: isEn ? "Estimated Quote" : "Cotización Estimada",
+        estimateDisclaimer: isEn ? "* Based on information provided by the client." : "* Basado en la información proporcionada por el cliente.",
+        additionalMsg: isEn ? "Additional Message" : "Mensaje Adicional",
+        footer: isEn ? "This is an automated email sent from thecleanharmony.com" : "Este es un correo automático enviado desde thecleanharmony.com",
+    };
 
-            <h2 style={{ fontSize: '18px', borderTop: '1px solid #ddd', paddingTop: '15px' }}>Detalles del Servicio</h2>
-            <ul style={{ listStyleType: 'none', padding: '0' }}>
-                <li style={{ marginBottom: '10px' }}><strong>Tipo de Servicio:</strong> {serviceType}</li>
-                <li style={{ marginBottom: '10px' }}><strong>Ubicación:</strong> {serviceLocation}</li>
-                <li style={{ marginBottom: '10px' }}><strong>Tamaño (sq ft):</strong> {squareMeters}</li>
-                {propertyType && <li style={{ marginBottom: '10px' }}><strong>Tipo de Propiedad:</strong> {propertyType}</li>}
-                {frequency && <li style={{ marginBottom: '10px' }}><strong>Frecuencia:</strong> {frequency}</li>}
-                {preferredDate && <li style={{ marginBottom: '10px' }}><strong>Fecha Preferida:</strong> {preferredDate}</li>}
-                {addressDetails && <li style={{ marginBottom: '10px' }}><strong>Dirección:</strong> {addressDetails}</li>}
-            </ul>
+    const valueLabels = {
+        serviceType: {
+            organizing: isEn ? "Organization Services" : "Servicios de Organización",
+            residential: isEn ? "Residential Cleaning" : "Limpieza de Inmuebles",
+            commercial: isEn ? "Commercial Cleaning" : "Limpieza Comercial",
+            deep: isEn ? "Deep Cleaning" : "Limpieza Profunda",
+            moveInOut: isEn ? "Move In/Out Cleaning" : "Limpieza de Mudanza",
+            special: isEn ? "Special Occasions Cleaning" : "Limpieza en fechas especiales",
+        },
+        serviceLocation: {
+            maryland: "Maryland",
+            washington: "Washington",
+            virginia: "Virginia",
+        },
+        propertyType: {
+            house: isEn ? "House" : "Casa",
+            apartment: isEn ? "Apartment" : "Apartamento",
+            office: isEn ? "Office" : "Oficina",
+            commercial: isEn ? "Commercial" : "Local Comercial",
+        },
+        frequency: {
+            once: isEn ? "One time" : "Una vez",
+            weekly: isEn ? "Weekly (-5%)" : "Semanal (-5%)",
+            monthly: isEn ? "Monthly (-10%)" : "Mensual (-10%)",
+        }
+    };
 
-            {message && (
-                <div style={{ borderTop: '1px solid #ddd', paddingTop: '15px' }}>
-                    <h2 style={{ fontSize: '18px' }}>Mensaje Adicional</h2>
-                    <p style={{ whiteSpace: 'pre-wrap' }}>{message}</p>
+    const getMappedValue = (category: keyof typeof valueLabels, value: string | undefined) => {
+        if (!value) return "";
+        const mapping = valueLabels[category] as Record<string, string>;
+        return mapping[value] || value;
+    };
+
+    return (
+        <div style={{ fontFamily: 'serif', color: '#333', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
+            <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                {/* Header with Logo */}
+                <div style={{ backgroundColor: '#ffffff', padding: '25px 40px', textAlign: 'center' }}>
+                    <img
+                        src="cid:logo"
+                        alt="Harmony"
+                        style={{ width: '220px', height: 'auto' }}
+                    />
                 </div>
-            )}
+
+                <div style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
+                    <h1 style={{ color: '#165b37', margin: '0 0 10px 0', fontSize: '26px' }}>{labels.title}</h1>
+                    <p style={{ color: '#6b7280', fontSize: '16px', margin: '0 0 30px 0' }}>{labels.subtitle}</p>
+
+                    <div style={{ backgroundColor: '#ebf7ef', padding: '30px', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
+                        <h2 style={{ fontSize: '18px', marginTop: '0', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.clientDetails}</h2>
+                        <ul style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.name}</strong> {name}</li>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.email}</strong> {email}</li>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.phone}</strong> {phone}</li>
+                        </ul>
+
+                        <h2 style={{ fontSize: '18px', marginTop: '30px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.serviceDetails}</h2>
+                        <ul style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.type}</strong> {getMappedValue('serviceType', serviceType)}</li>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.location}</strong> {getMappedValue('serviceLocation', serviceLocation)}</li>
+                            <li style={{ marginBottom: '12px' }}><strong>{labels.size}</strong> {squareMeters}</li>
+                            {propertyType && <li style={{ marginBottom: '12px' }}><strong>{labels.property}</strong> {getMappedValue('propertyType', propertyType)}</li>}
+                            {frequency && <li style={{ marginBottom: '12px' }}><strong>{labels.frequencyLabel}</strong> {getMappedValue('frequency', frequency)}</li>}
+                            {preferredDate && <li style={{ marginBottom: '12px' }}><strong>{labels.date}</strong> {preferredDate}</li>}
+                            {addressDetails && <li style={{ marginBottom: '12px' }}><strong>{labels.address}</strong> {addressDetails}</li>}
+                        </ul>
+
+                        {estimatedPrice && (
+                            <div style={{ marginTop: '30px', padding: '25px', backgroundColor: '#165b37', color: 'white', borderRadius: '4px', textAlign: 'center' }}>
+                                <h2 style={{ fontSize: '18px', margin: '0 0 5px 0', color: 'white' }}>{labels.estimateTitle}</h2>
+                                <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0' }}>{estimatedPrice}</p>
+                                <p style={{ fontSize: '12px', margin: '8px 0 0 0', opacity: '0.9' }}>{labels.estimateDisclaimer}</p>
+                            </div>
+                        )}
+
+                        {message && (
+                            <div style={{ marginTop: '30px' }}>
+                                <h2 style={{ fontSize: '18px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.additionalMsg}</h2>
+                                <p style={{ whiteSpace: 'pre-wrap', backgroundColor: 'white', padding: '20px', borderRadius: '4px', border: '1px solid #c7e1d1', color: '#333', fontSize: '15px' }}>{message}</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div style={{ padding: '25px', backgroundColor: '#f9fafb', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
+                    <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0' }}>{labels.footer}</p>
+                </div>
+            </div>
         </div>
-    </div>
-);
+    );
+};
