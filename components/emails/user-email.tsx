@@ -27,19 +27,89 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({ name, language =
     };
 
     return (
-        <div style={{ fontFamily: 'serif', color: '#333', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
-            <div style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
-                {/* Header with Logo */}
-                <div style={{ backgroundColor: '#ffffff', padding: '25px 40px', textAlign: 'center' }}>
-                    <img
-                        src="cid:logo"
-                        alt="Harmony"
-                        style={{ width: '220px', height: 'auto' }}
-                    />
+        <div style={{ fontFamily: 'Georgia, "Times New Roman", Times, serif', color: '#333', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
+            {/* Meta tags for Dark Mode support */}
+            <meta name="color-scheme" content="light dark" />
+            <meta name="supported-color-schemes" content="light dark" />
+
+            {/* Link to EB Garamond for compatible email clients */}
+            <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                :root {
+                    color-scheme: light dark;
+                    supported-color-schemes: light dark;
+                }
+                @media (prefers-color-scheme: dark) {
+                    .body-bg {
+                        background-color: #f9fafb !important;
+                    }
+                    .main-container {
+                        background-color: #ffffff !important;
+                        background-image: linear-gradient(#ffffff, #ffffff) !important;
+                    }
+                    .brand-green {
+                        color: #0d3a23 !important;
+                        background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                        -webkit-background-clip: text !important;
+                        -webkit-text-fill-color: #0d3a23 !important;
+                    }
+                    .header-bg {
+                        background-color: #ffffff !important;
+                        background-image: linear-gradient(#ffffff, #ffffff) !important;
+                    }
+                }
+                /* Higher specificity for Outlook and other tricky clients */
+                [data-ogsc] .brand-green { 
+                    color: #0d3a23 !important;
+                    background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                }
+                [data-ogsb] .header-bg { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
+                [data-ogsb] .main-container { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
+                
+                /* Prevent automatic color inversion by Gmail and others */
+                u + .body .brand-green { 
+                    color: #0d3a23 !important;
+                    background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                }
+                u + .body .header-bg { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
+            `}} />
+
+            <div className="main-container" style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                <div className="header-bg" style={{ padding: '40px 40px 30px 40px', textAlign: 'center', backgroundColor: '#ffffff' }}>
+                    <h1
+                        className="brand-green notranslate"
+                        translate="no"
+                        style={{
+                            margin: 0,
+                            padding: 0,
+                            fontFamily: '"EB Garamond", Georgia, "Times New Roman", Times, serif',
+                            color: '#165b37',
+                            fontSize: '48px',
+                            fontWeight: '400',
+                            letterSpacing: '-1px',
+                            lineHeight: '1',
+                            textTransform: 'none'
+                        }}
+                    >
+                        Harmony
+                    </h1>
+                    <p className="brand-green" style={{
+                        margin: '2px 0 0 0',
+                        padding: 0,
+                        fontFamily: '"EB Garamond", Georgia, "Times New Roman", Times, serif',
+                        color: '#165b37',
+                        fontSize: '16px',
+                        fontStyle: 'italic',
+                        letterSpacing: '0.5px'
+                    }}>
+                        Cleaning services
+                    </p>
                 </div>
 
                 <div style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
-                    <h1 style={{ color: '#165b37', margin: '0 0 20px 0', fontSize: '26px' }}>{content.greeting}</h1>
+                    <h1 className="brand-green" style={{ color: '#165b37', margin: '0 0 20px 0', fontSize: '26px', fontWeight: 'bold' }}>{content.greeting}</h1>
                     <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#4b5563' }} dangerouslySetInnerHTML={{ __html: content.thanks }} />
                     <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#4b5563' }}>{content.process}</p>
 

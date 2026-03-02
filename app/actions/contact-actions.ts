@@ -12,22 +12,6 @@ import path from 'path';
 // 1. Definimos el remitente oficial de tu dominio para evitar bloqueos
 const SENDER_EMAIL = "Harmony <notificaciones@thecleanharmony.com>";
 
-// Logo paths and data for attachments
-const LOGO_PATH = path.join(process.cwd(), 'public', 'harmony_logo.png');
-let logoAttachment: { filename: string; content: Buffer; cid: string } | null = null;
-
-try {
-  if (fs.existsSync(LOGO_PATH)) {
-    const logoBuffer = fs.readFileSync(LOGO_PATH);
-    logoAttachment = {
-      filename: 'harmony_logo.png',
-      content: logoBuffer,
-      cid: 'logo',
-    };
-  }
-} catch (error) {
-  console.error("Error loading logo for email:", error);
-}
 
 const contactSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -103,7 +87,6 @@ export async function submitContactForm(prevState: any, formData: FormData) {
           estimatedPrice: validatedData.estimatedPrice,
           language: lang,
         }) as any,
-        attachments: logoAttachment ? [logoAttachment] : [],
       })
     }
 
@@ -113,7 +96,6 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       to: validatedData.email,
       subject: lang === "es" ? "Hemos recibido tu solicitud - Harmony" : "We have received your request - Harmony",
       react: UserEmail({ name: validatedData.name, language: lang }) as any,
-      attachments: logoAttachment ? [logoAttachment] : [],
     })
 
     revalidatePath("/contacto")
@@ -170,9 +152,6 @@ export async function submitPromoPhone(prevState: any, formData: FormData) {
           html: `
             <div style="font-family: serif; color: #333; background-color: #f9fafb; padding: 40px 20px;">
               <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e5e7eb;">
-                <div style="background-color: #ffffff; padding: 25px 40px; text-align: center;">
-                  <img src="cid:logo" alt="Harmony" style="width: 220px; height: auto;" />
-                </div>
                 <div style="padding: 40px; border-top: 1px solid #f3f4f6;">
                   <h1 style="color: #165b37; margin: 0 0 10px 0; font-size: 26px; border-bottom: 2px solid #165b37; padding-bottom: 10px;">
                     ${lang === "es" ? "Nueva Solicitud de Promo" : "New Promo Request"}
@@ -193,7 +172,6 @@ export async function submitPromoPhone(prevState: any, formData: FormData) {
               </div>
             </div>
           `,
-          attachments: logoAttachment ? [logoAttachment] : [],
         })
       } catch (emailError) {
         console.error("Error sending admin email for promo:", emailError)
