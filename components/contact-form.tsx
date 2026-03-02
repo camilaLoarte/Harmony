@@ -54,6 +54,11 @@ export default function ContactForm() {
     const [errors, setErrors] = useState<Record<string, string>>({})
     const [showSuccess, setShowSuccess] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [mounted, setMounted] = useState(false)
+
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
 
     const serviceTypes =
         language === "es"
@@ -234,6 +239,8 @@ export default function ContactForm() {
             [name]: value,
         })
     }
+
+    if (!mounted) return null
 
     return (
         <>

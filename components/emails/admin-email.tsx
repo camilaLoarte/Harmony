@@ -14,6 +14,7 @@ interface AdminEmailProps {
     addressDetails?: string;
     estimatedPrice?: string;
     language?: 'en' | 'es';
+    logoUrl?: string;
 }
 
 export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
@@ -30,6 +31,7 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
     addressDetails,
     estimatedPrice,
     language = 'es',
+    logoUrl = 'cid:logo',
 }) => {
     const isEn = language === 'en';
 
@@ -93,6 +95,7 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
             <meta name="color-scheme" content="light dark" />
             <meta name="supported-color-schemes" content="light dark" />
 
+
             {/* Link to EB Garamond for compatible email clients */}
             <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
 
@@ -111,79 +114,78 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
                         background-image: linear-gradient(#ffffff, #ffffff) !important;
                     }
                     .brand-green {
-                        color: #0d3a23 !important;
-                        background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                        color: #165b37 !important;
+                        background-image: linear-gradient(#165b37, #165b37) !important;
                         -webkit-background-clip: text !important;
-                        -webkit-text-fill-color: #0d3a23 !important;
+                        -webkit-text-fill-color: #165b37 !important;
                     }
                     .header-bg {
                         background-color: #ffffff !important;
                         background-image: linear-gradient(#ffffff, #ffffff) !important;
                     }
+                    .content-section {
+                        background-color: #ffffff !important;
+                        background-image: linear-gradient(#ffffff, #ffffff) !important;
+                    }
+                    .detail-box {
+                        background-color: #ebf7ef !important;
+                        background-image: linear-gradient(#ebf7ef, #ebf7ef) !important;
+                    }
+                    .detail-text {
+                        color: #333333 !important;
+                    }
+                    .footer-bg {
+                        background-color: #f9fafb !important;
+                        background-image: linear-gradient(#f9fafb, #f9fafb) !important;
+                    }
                 }
                 /* Higher specificity for Outlook and other tricky clients */
                 [data-ogsc] .brand-green { 
-                    color: #0d3a23 !important;
-                    background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                    color: #165b37 !important;
+                    background-image: linear-gradient(#165b37, #165b37) !important;
                 }
                 [data-ogsb] .header-bg { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
                 [data-ogsb] .main-container { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
+                [data-ogsb] .detail-box { background-color: #ebf7ef !important; background-image: linear-gradient(#ebf7ef, #ebf7ef) !important; }
                 
                 /* Prevent automatic color inversion by Gmail and others */
                 u + .body .brand-green { 
-                    color: #0d3a23 !important;
-                    background-image: linear-gradient(#0d3a23, #0d3a23) !important;
+                    color: #165b37 !important;
+                    background-image: linear-gradient(#165b37, #165b37) !important;
                 }
                 u + .body .header-bg { background-color: #ffffff !important; background-image: linear-gradient(#ffffff, #ffffff) !important; }
+                u + .body .detail-box { background-color: #ebf7ef !important; background-image: linear-gradient(#ebf7ef, #ebf7ef) !important; }
             `}} />
 
             <div className="body-bg" style={{ maxWidth: '100%', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
                 <div className="main-container" style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
                     <div className="header-bg" style={{ padding: '40px 40px 30px 40px', textAlign: 'center', backgroundColor: '#ffffff' }}>
-                        <h1
-                            className="brand-green notranslate"
-                            translate="no"
+                        <img
+                            src={logoUrl}
+                            alt="Harmony Logo"
                             style={{
-                                margin: 0,
-                                padding: 0,
-                                fontFamily: '"EB Garamond", Georgia, "Times New Roman", Times, serif',
-                                color: '#165b37',
-                                fontSize: '48px',
-                                fontWeight: '400',
-                                letterSpacing: '-1px',
-                                lineHeight: '1',
-                                textTransform: 'none'
+                                display: 'block',
+                                margin: '0 auto',
+                                maxWidth: '200px',
+                                height: 'auto'
                             }}
-                        >
-                            Harmony
-                        </h1>
-                        <p className="brand-green" style={{
-                            margin: '2px 0 0 0',
-                            padding: 0,
-                            fontFamily: '"EB Garamond", Georgia, "Times New Roman", Times, serif',
-                            color: '#165b37',
-                            fontSize: '16px',
-                            fontStyle: 'italic',
-                            letterSpacing: '0.5px'
-                        }}>
-                            Cleaning services
-                        </p>
+                        />
                     </div>
 
-                    <div style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
+                    <div className="content-section" style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
                         <h1 className="brand-green" style={{ color: '#165b37', margin: '0 0 20px 0', fontSize: '26px', fontWeight: 'bold' }}>{labels.title}</h1>
                         <p style={{ color: '#6b7280', fontSize: '16px', margin: '0 0 30px 0' }}>{labels.subtitle}</p>
 
-                        <div style={{ backgroundColor: '#ebf7ef', padding: '30px', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
-                            <h2 style={{ fontSize: '18px', marginTop: '0', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.clientDetails}</h2>
-                            <ul style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
+                        <div className="detail-box" style={{ backgroundColor: '#ebf7ef', padding: '30px', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
+                            <h2 className="brand-green" style={{ fontSize: '18px', marginTop: '0', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.clientDetails}</h2>
+                            <ul className="detail-text" style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.name}</strong> {name}</li>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.email}</strong> {email}</li>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.phone}</strong> {phone}</li>
                             </ul>
 
-                            <h2 style={{ fontSize: '18px', marginTop: '30px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.serviceDetails}</h2>
-                            <ul style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
+                            <h2 className="brand-green" style={{ fontSize: '18px', marginTop: '30px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.serviceDetails}</h2>
+                            <ul className="detail-text" style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.type}</strong> {getMappedValue('serviceType', serviceType)}</li>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.location}</strong> {getMappedValue('serviceLocation', serviceLocation)}</li>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.size}</strong> {squareMeters}</li>
@@ -203,14 +205,14 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
 
                             {message && (
                                 <div style={{ marginTop: '30px' }}>
-                                    <h2 style={{ fontSize: '18px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.additionalMsg}</h2>
-                                    <p style={{ whiteSpace: 'pre-wrap', backgroundColor: 'white', padding: '20px', borderRadius: '4px', border: '1px solid #c7e1d1', color: '#333', fontSize: '15px' }}>{message}</p>
+                                    <h2 className="brand-green" style={{ fontSize: '18px', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.additionalMsg}</h2>
+                                    <p className="detail-text" style={{ whiteSpace: 'pre-wrap', backgroundColor: 'white', padding: '20px', borderRadius: '4px', border: '1px solid #c7e1d1', color: '#333', fontSize: '15px' }}>{message}</p>
                                 </div>
                             )}
                         </div>
                     </div>
 
-                    <div style={{ padding: '25px', backgroundColor: '#f9fafb', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
+                    <div className="footer-bg" style={{ padding: '25px', backgroundColor: '#f9fafb', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
                         <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0' }}>{labels.footer}</p>
                     </div>
                 </div>

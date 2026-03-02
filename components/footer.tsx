@@ -99,13 +99,13 @@ export default function Footer() {
             <h3 className="font-semibold text-lg mb-4">{t("nav.contact")}</h3>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="tel:+12403083255"
-                  className="flex items-center gap-2 text-background/70 hover:text-background text-sm transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>+1 (240) 308-3255 ;  +1 (240) 888-3097</span>
-                </a>
+                <div className="flex items-center gap-2 text-background/70 text-sm">
+                  <Phone className="w-4 h-4 flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <span>+1 (240) 308-3255</span>
+                    <span>+1 (240) 888-3097</span>
+                  </div>
+                </div>
               </li>
               <li>
                 <a

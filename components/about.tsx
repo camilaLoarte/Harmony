@@ -18,7 +18,7 @@ export default function About() {
   const { t } = useLanguage()
 
   return (
-    <section id="about" className="py-12 md:py-16">
+    <section id="about" className="py-12 md:py-16 bg-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Image */}

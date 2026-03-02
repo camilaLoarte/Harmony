@@ -134,7 +134,7 @@ export default function ServiceDetailPage() {
 
   if (!service) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f8f6f3]">
+      <div className="min-h-screen flex items-center justify-center bg-muted/30">
         <div className="text-center">
           <h1 className="text-3xl font-bold text-[#1a4d3a] mb-4">
             {language === "es" ? "Servicio no encontrado" : "Service not found"}
@@ -155,7 +155,7 @@ export default function ServiceDetailPage() {
   const description = language === "es" ? service.descriptionEs : service.descriptionEn
 
   return (
-    <div className="min-h-screen bg-[#f8f6f3]">
+    <div className="min-h-screen bg-muted/30">
       <Header />
 
       {/* Hero Banner */}

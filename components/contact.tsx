@@ -26,11 +26,10 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{t("contact.info.phone")}</h3>
-                  <a href="tel:+12403083255" className="text-muted-foreground hover:text-[#1a4d3a] transition-colors">
-                    +1 (240) 308-3255
-                    <br />
-                    +1 (240) 888-3097
-                  </a>
+                  <div className="flex flex-col text-muted-foreground">
+                    <span>+1 (240) 308-3255</span>
+                    <span>+1 (240) 888-3097</span>
+                  </div>
                 </div>
               </div>
 
