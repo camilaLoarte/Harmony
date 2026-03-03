@@ -10,22 +10,10 @@ import fs from 'fs';
 import path from 'path';
 
 // 1. Definimos el remitente oficial de tu dominio para evitar bloqueos
-const SENDER_EMAIL = "Harmony <notificaciones@thecleanharmony.com>";
+const SENDER_EMAIL = "Harmony <info@thecleanharmony.com>";
 
-// Configuración del logo en Base64 para evitar el recuadro de adjuntos
-const logoPath = path.resolve(process.cwd(), 'public', 'logo_mail.png');
-let logoUrl = '';
-try {
-  if (fs.existsSync(logoPath)) {
-    const logoBuffer = fs.readFileSync(logoPath);
-    const base64Logo = logoBuffer.toString('base64');
-    logoUrl = `data:image/png;base64,${base64Logo}`;
-  } else {
-    console.error('ERROR: Logo file not found at:', logoPath);
-  }
-} catch (err) {
-  console.error('ERROR reading logo file:', err);
-}
+// Configuración del logo: Usamos un enlace directo de Google Drive
+const logoUrl = "https://lh3.googleusercontent.com/d/1LTaMKlsdixCAlrNWcLrFWyzHonFGkYba";
 
 
 const contactSchema = z.object({

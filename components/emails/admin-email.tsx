@@ -139,6 +139,43 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
                         background-image: linear-gradient(#f9fafb, #f9fafb) !important;
                     }
                 }
+                @media only screen and (max-width: 620px) {
+                    .body-bg {
+                        padding: 10px 0 !important;
+                    }
+                    .main-container {
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        margin: 0 auto !important;
+                        border-radius: 0 !important;
+                        border-left: none !important;
+                        border-right: none !important;
+                    }
+                    .header-bg {
+                        padding: 5px 15px 0 15px !important;
+                    }
+                    .content-section {
+                        padding: 15px !important;
+                    }
+                    .detail-box {
+                        padding: 20px 15px !important;
+                    }
+                    h1 {
+                        font-size: 22px !important;
+                    }
+                    .estimate-box {
+                        padding: 15px !important;
+                        max-width: 250px !important;
+                        margin: 0 auto !important;
+                    }
+                    .estimate-value {
+                        font-size: 18px !important;
+                    }
+                    .logo-img {
+                        max-width: 280px !important;
+                        width: 280px !important;
+                    }
+                }
                 /* Higher specificity for Outlook and other tricky clients */
                 [data-ogsc] .brand-green { 
                     color: #165b37 !important;
@@ -158,25 +195,36 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
             `}} />
 
             <div className="body-bg" style={{ maxWidth: '100%', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
-                <div className="main-container" style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
-                    <div className="header-bg" style={{ padding: '40px 40px 30px 40px', textAlign: 'center', backgroundColor: '#ffffff' }}>
-                        <img
-                            src={logoUrl}
-                            alt="Harmony Logo"
-                            style={{
-                                display: 'block',
-                                margin: '0 auto',
-                                maxWidth: '200px',
-                                height: 'auto'
-                            }}
-                        />
+                <div className="main-container" style={{ maxWidth: '700px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                    <div className="header-bg" style={{ padding: '10px 25px 0 25px', textAlign: 'center', backgroundColor: '#ffffff' }}>
+                        <table width="100%" cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse' }}>
+                            <tr>
+                                <td align="center" style={{ textAlign: 'center' }}>
+                                    <div style={{ maxWidth: '450px', width: '100%', margin: '0 auto' }}>
+                                        <img
+                                            src={logoUrl}
+                                            alt="Harmony Logo"
+                                            className="logo-img"
+                                            style={{
+                                                display: 'block',
+                                                width: '100%',
+                                                maxWidth: '450px',
+                                                height: 'auto',
+                                                margin: '0 auto',
+                                                textAlign: 'center'
+                                            }}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div className="content-section" style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
+                    <div className="content-section" style={{ padding: '20px 25px', borderTop: '1px solid #f3f4f6' }}>
                         <h1 className="brand-green" style={{ color: '#165b37', margin: '0 0 20px 0', fontSize: '26px', fontWeight: 'bold' }}>{labels.title}</h1>
                         <p style={{ color: '#6b7280', fontSize: '16px', margin: '0 0 30px 0' }}>{labels.subtitle}</p>
 
-                        <div className="detail-box" style={{ backgroundColor: '#ebf7ef', padding: '30px', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
+                        <div className="detail-box" style={{ backgroundColor: '#ebf7ef', padding: '25px', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
                             <h2 className="brand-green" style={{ fontSize: '18px', marginTop: '0', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{labels.clientDetails}</h2>
                             <ul className="detail-text" style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
                                 <li style={{ marginBottom: '12px' }}><strong>{labels.name}</strong> {name}</li>
@@ -196,11 +244,17 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
                             </ul>
 
                             {estimatedPrice && (
-                                <div style={{ marginTop: '30px', padding: '25px', backgroundColor: '#165b37', color: 'white', borderRadius: '4px', textAlign: 'center' }}>
-                                    <h2 style={{ fontSize: '18px', margin: '0 0 5px 0', color: 'white' }}>{labels.estimateTitle}</h2>
-                                    <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0' }}>{estimatedPrice}</p>
-                                    <p style={{ fontSize: '12px', margin: '8px 0 0 0', opacity: '0.9' }}>{labels.estimateDisclaimer}</p>
-                                </div>
+                                <table width="100%" cellPadding="0" cellSpacing="0" border={0} style={{ margin: '25px 0', borderCollapse: 'collapse' }}>
+                                    <tr>
+                                        <td align="center" style={{ textAlign: 'center' }}>
+                                            <div className="estimate-box" style={{ padding: '12px 20px', backgroundColor: '#165b37', color: 'white', borderRadius: '4px', textAlign: 'center', maxWidth: '320px', margin: '0 auto' }}>
+                                                <h2 style={{ fontSize: '13px', fontWeight: '500', margin: '0 0 4px 0', color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{labels.estimateTitle}</h2>
+                                                <p className="estimate-value" style={{ fontSize: '22px', fontWeight: 'bold', margin: '0' }}>{estimatedPrice}</p>
+                                                <p style={{ fontSize: '10px', margin: '6px 0 0 0', opacity: '0.8' }}>{labels.estimateDisclaimer}</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             )}
 
                             {message && (
@@ -212,8 +266,8 @@ export const AdminEmail: React.FC<Readonly<AdminEmailProps>> = ({
                         </div>
                     </div>
 
-                    <div className="footer-bg" style={{ padding: '25px', backgroundColor: '#f9fafb', borderTop: '1px solid #f3f4f6', textAlign: 'center' }}>
-                        <p style={{ fontSize: '12px', color: '#9ca3af', margin: '0' }}>{labels.footer}</p>
+                    <div className="footer-bg" style={{ padding: '25px', backgroundColor: '#f9fafb', borderTop: '1px solid #f3f4f6', textAlign: 'left' }}>
+                        <p style={{ fontSize: '11px', color: '#9ca3af', margin: '0' }}>{labels.footer}</p>
                     </div>
                 </div>
             </div>

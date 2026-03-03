@@ -105,7 +105,7 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({
     };
 
     return (
-        <div style={{ fontFamily: 'Georgia, "Times New Roman", Times, serif', color: '#333', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
+        <div className="body-bg" style={{ fontFamily: 'Georgia, "Times New Roman", Times, serif', color: '#333', backgroundColor: '#f9fafb', padding: '40px 20px' }}>
             {/* Meta tags for Dark Mode support */}
             <meta name="color-scheme" content="light dark" />
             <meta name="supported-color-schemes" content="light dark" />
@@ -153,6 +153,47 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({
                         background-image: linear-gradient(#f9fafb, #f9fafb) !important;
                     }
                 }
+                @media only screen and (max-width: 620px) {
+                    .body-bg {
+                        padding: 10px 0 !important;
+                    }
+                    .main-container {
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        margin: 0 auto !important;
+                        border-radius: 0 !important;
+                        border-left: none !important;
+                        border-right: none !important;
+                    }
+                    .header-bg {
+                        padding: 5px 15px 0 15px !important;
+                    }
+                    .content-section {
+                        padding: 15px !important;
+                    }
+                    .detail-box {
+                        padding: 20px 15px !important;
+                    }
+                    h1 {
+                        font-size: 22px !important;
+                    }
+                    .estimate-box {
+                        padding: 15px !important;
+                        max-width: 250px !important;
+                        margin: 0 auto !important;
+                    }
+                    .estimate-value {
+                        font-size: 18px !important;
+                    }
+                    .logo-img {
+                        max-width: 280px !important;
+                        width: 280px !important;
+                    }
+                    .signature-section {
+                        text-align: left !important;
+                        padding-left: 15px !important;
+                    }
+                }
                 /* Higher specificity for Outlook and other tricky clients */
                 [data-ogsc] .brand-green { 
                     color: #165b37 !important;
@@ -171,27 +212,38 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({
                 u + .body .detail-box { background-color: #ebf7ef !important; background-image: linear-gradient(#ebf7ef, #ebf7ef) !important; }
             `}} />
 
-            <div className="main-container" style={{ maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
-                <div className="header-bg" style={{ padding: '40px 40px 30px 40px', textAlign: 'center', backgroundColor: '#ffffff' }}>
-                    <img
-                        src={logoUrl}
-                        alt="Harmony Logo"
-                        style={{
-                            display: 'block',
-                            margin: '0 auto',
-                            maxWidth: '200px',
-                            height: 'auto'
-                        }}
-                    />
+            <div className="main-container" style={{ maxWidth: '700px', margin: '0 auto', backgroundColor: '#ffffff', borderRadius: '4px', overflow: 'hidden', border: '1px solid #e5e7eb' }}>
+                <div className="header-bg" style={{ padding: '10px 25px 0 25px', textAlign: 'center', backgroundColor: '#ffffff' }}>
+                    <table width="100%" cellPadding="0" cellSpacing="0" border={0} style={{ borderCollapse: 'collapse' }}>
+                        <tr>
+                            <td align="center" style={{ textAlign: 'center' }}>
+                                <div style={{ maxWidth: '450px', width: '100%', margin: '0 auto' }}>
+                                    <img
+                                        src={logoUrl}
+                                        alt="Harmony Logo"
+                                        className="logo-img"
+                                        style={{
+                                            display: 'block',
+                                            width: '100%',
+                                            maxWidth: '450px',
+                                            height: 'auto',
+                                            margin: '0 auto',
+                                            textAlign: 'center'
+                                        }}
+                                    />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
-                <div className="content-section" style={{ padding: '40px', borderTop: '1px solid #f3f4f6' }}>
+                <div className="content-section" style={{ padding: '20px 25px', borderTop: '1px solid #f3f4f6' }}>
                     <h1 className="brand-green" style={{ color: '#165b37', margin: '0 0 20px 0', fontSize: '26px', fontWeight: 'bold' }}>{content.greeting}</h1>
                     <p className="detail-text" style={{ fontSize: '16px', lineHeight: '1.6', color: '#4b5563' }} dangerouslySetInnerHTML={{ __html: content.thanks }} />
                     <p className="detail-text" style={{ fontSize: '16px', lineHeight: '1.6', color: '#4b5563' }}>{content.process}</p>
                     <p className="brand-green" style={{ margin: '20px 0', color: '#165b37', fontWeight: '500', fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: content.urgent }} />
 
-                    <div className="detail-box" style={{ marginTop: '30px', padding: '30px', backgroundColor: '#ebf7ef', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
+                    <div className="detail-box" style={{ marginTop: '30px', padding: '25px', backgroundColor: '#ebf7ef', borderRadius: '4px', border: '1px solid #c7e1d1' }}>
                         <h2 className="brand-green" style={{ fontSize: '18px', marginTop: '0', color: '#165b37', borderBottom: '1px solid #b2d3c1', paddingBottom: '10px' }}>{content.serviceDetails}</h2>
                         <ul className="detail-text" style={{ listStyleType: 'none', padding: '0', color: '#333', fontSize: '15px' }}>
                             <li style={{ marginBottom: '12px' }}><strong>{labels.type}</strong> {getMappedValue('serviceType', serviceType)}</li>
@@ -204,10 +256,16 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({
                         </ul>
 
                         {estimatedPrice && (
-                            <div style={{ marginTop: '30px', padding: '25px', backgroundColor: '#165b37', color: 'white', borderRadius: '4px', textAlign: 'center' }}>
-                                <p style={{ fontSize: '18px', margin: '0 0 5px 0', color: 'white' }}>{labels.estimateTitle}</p>
-                                <p style={{ fontSize: '30px', fontWeight: 'bold', margin: '0' }}>{estimatedPrice}</p>
-                            </div>
+                            <table width="100%" cellPadding="0" cellSpacing="0" border={0} style={{ margin: '25px 0', borderCollapse: 'collapse' }}>
+                                <tr>
+                                    <td align="center" style={{ textAlign: 'center' }}>
+                                        <div className="estimate-box" style={{ padding: '12px 20px', backgroundColor: '#165b37', color: 'white', borderRadius: '4px', textAlign: 'center', maxWidth: '320px', margin: '0 auto' }}>
+                                            <p style={{ fontSize: '13px', fontWeight: '500', margin: '0 0 4px 0', color: 'rgba(255,255,255,0.9)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{labels.estimateTitle}</p>
+                                            <p className="estimate-value" style={{ fontSize: '22px', fontWeight: 'bold', margin: '0' }}>{estimatedPrice}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         )}
 
                         {message && (
@@ -219,11 +277,11 @@ export const UserEmail: React.FC<Readonly<UserEmailProps>> = ({
                     </div>
                 </div>
 
-                <div style={{ marginTop: '50px', borderTop: '1px solid #f3f4f6', paddingTop: '40px', textAlign: 'center' }}>
-                    <p className="detail-text" style={{ fontSize: '16px', color: '#6b7280', margin: '0 0 10px 0', fontStyle: 'italic', fontWeight: '400' }}>
+                <div className="signature-section" style={{ marginTop: '40px', borderTop: '1px solid #f3f4f6', paddingTop: '30px', textAlign: 'left', paddingLeft: '25px' }}>
+                    <p className="detail-text" style={{ fontSize: '16px', color: '#6b7280', margin: '0 0 8px 0', fontStyle: 'italic', fontWeight: '400' }}>
                         {content.signature}
                     </p>
-                    <p className="brand-green" style={{ color: '#165b37', fontSize: '22px', fontWeight: 'bold', margin: '0' }}>
+                    <p className="brand-green" style={{ color: '#165b37', fontSize: '20px', fontWeight: 'bold', margin: '0' }}>
                         {content.team}
                     </p>
                 </div>
