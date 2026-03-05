@@ -45,7 +45,7 @@ export default function Promo() {
         {/* Mensaje de estado */}
         {state.message ? (
           <p className="mt-3 text-sm text-white/90">
-            {state.success ? "✅ " : "❌ "}
+            {state.success ? "" : ""}
             {state.message}
           </p>
         ) : null}
