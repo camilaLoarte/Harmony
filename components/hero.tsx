@@ -10,8 +10,8 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative pt-4 md:pt-4 pb-0 overflow-hidden bg-[#f8f6f3]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-0">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 min-h-screen pb-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-0 items-center">
           {/* Left Image */}
           <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
             <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[600px] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
