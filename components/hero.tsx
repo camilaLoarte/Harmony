@@ -9,12 +9,12 @@ export default function Hero() {
   const whatsappUrl = "https://api.whatsapp.com/send?phone=12403083255&text=Hi%20Harmony,%20%20I%20need%20information%20about%20your%20services."
 
   return (
-    <section id="home" className="relative pt-24 md:pt-32 pb-0 overflow-hidden bg-[#f8f6f3]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center py-8 md:py-12">
+    <section id="home" className="relative min-h-screen flex flex-col pt-20 md:pt-24 overflow-hidden bg-[#f8f6f3]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex items-center py-12">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           {/* Left Image */}
           <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
-            <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[600px] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
+            <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[75vh] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
               <img
                 src="/limpieza.jpg"
                 alt="Professional cleaner in white protective suit"
@@ -29,7 +29,7 @@ export default function Hero() {
               {t("hero.tagline")}
             </p>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-8 leading-tight whitespace-pre-wrap">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-primary mb-8 leading-tight whitespace-pre-wrap">
               {t("hero.mainTitle")}
             </h1>
 
@@ -73,15 +73,15 @@ export default function Hero() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-primary/20">
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">500+</div>
+                <div className="text-3xl md:text-4xl xl:text-5xl font-bold text-primary mb-1">500+</div>
                 <div className="text-sm text-primary/70">{t("about.clients")}</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">10+</div>
+                <div className="text-3xl md:text-4xl xl:text-5xl font-bold text-primary mb-1">10+</div>
                 <div className="text-sm text-primary/70">{t("about.experience")}</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">100%</div>
+                <div className="text-3xl md:text-4xl xl:text-5xl font-bold text-primary mb-1">100%</div>
                 <div className="text-sm text-primary/70">{t("hero.satisfaction")}</div>
               </div>
             </div>
