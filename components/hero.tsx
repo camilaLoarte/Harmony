@@ -10,11 +10,11 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col pt-20 md:pt-24 overflow-hidden bg-[#f8f6f3]">
-      <div className="mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 flex-1 flex items-center py-12 w-full max-w-[1800px]">
+      <div className="mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 flex-1 flex items-center py-12 w-full max-w-[2000px]">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           {/* Left Image */}
-          <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
-            <div className="relative aspect-square lg:aspect-[4/5] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
+          <div className="relative order-2 lg:order-1 flex items-center justify-center lg:justify-start py-4">
+            <div className="relative aspect-square lg:aspect-[4/5] w-full max-w-[500px] lg:max-w-none lg:max-h-[82vh] overflow-hidden shadow-2xl">
               <img
                 src="/limpieza.jpg"
                 alt="Professional cleaner in white protective suit"
