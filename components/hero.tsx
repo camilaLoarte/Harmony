@@ -9,9 +9,9 @@ export default function Hero() {
   const whatsappUrl = "https://api.whatsapp.com/send?phone=12403083255&text=Hi%20Harmony,%20%20I%20need%20information%20about%20your%20services."
 
   return (
-    <section id="home" className="relative pt-4 md:pt-4 pb-0 overflow-hidden bg-[#f8f6f3]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mt-8 lg:mt-0 items-center">
+    <section id="home" className="relative pt-24 md:pt-32 pb-0 overflow-hidden bg-[#f8f6f3]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center py-8 md:py-12">
           {/* Left Image */}
           <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
             <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[600px] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
@@ -24,7 +24,7 @@ export default function Hero() {
           </div>
 
           {/* Right Content */}
-          <div className="text-left order-1 lg:order-2 lg:pt-24 pb-2">
+          <div className="text-left order-1 lg:order-2">
             <p className="text-xl md:text-2xl italic text-primary mb-1">
               {t("hero.tagline")}
             </p>
