@@ -10,11 +10,11 @@ export default function Hero() {
 
   return (
     <section id="home" className="relative min-h-screen flex flex-col pt-20 md:pt-24 overflow-hidden bg-[#f8f6f3]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex items-center py-12">
+      <div className="mx-auto px-4 sm:px-6 lg:px-12 xl:px-24 flex-1 flex items-center py-12 w-full max-w-[1800px]">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           {/* Left Image */}
           <div className="relative order-2 lg:order-1 flex items-start justify-center lg:justify-start">
-            <div className="relative aspect-square lg:aspect-[4/5] lg:max-h-[75vh] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
+            <div className="relative aspect-square lg:aspect-[4/5] w-full max-w-[500px] lg:max-w-none overflow-hidden shadow-xl">
               <img
                 src="/limpieza.jpg"
                 alt="Professional cleaner in white protective suit"
@@ -29,7 +29,7 @@ export default function Hero() {
               {t("hero.tagline")}
             </p>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-primary mb-8 leading-tight whitespace-pre-wrap">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold text-primary mb-8 leading-tight whitespace-pre-wrap">
               {t("hero.mainTitle")}
             </h1>
 
